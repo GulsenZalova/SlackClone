@@ -1,0 +1,40 @@
+@font-face {
+    font-family: NotoSans-Regular;
+    src: url(./assets/fonts/NotoSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: NotoSans-Bold;
+    src: url(./assets/fonts/NotoSans-Bold.ttf);
+}
+
+@font-face {
+    font-family: NotoSans-Medium;
+    src: url(./assets/fonts/NotoSans-Medium.ttf);
+}
+
+@font-face {
+    font-family: NotoSans-SemiBold;
+    src: url(./assets/fonts/NotoSans-SemiBold.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:NotoSans-Regular;
+}
+
+:root {
+    --dark: #0B090C;
+    --mediumdark: #333333;
+    --lightgray:#3C393F;
+    --textcolor:#E0E0E0;
+    --titlecolor:#828282;
+    --buttoncolor:#2F80ED;
+    --logoutcolor: #EB5757;
+  }
+
