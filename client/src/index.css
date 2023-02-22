@@ -31,8 +31,10 @@ body {
 :root {
     --dark: #0B090C;
     --mediumdark: #333333;
+    --semidark:#252329;
     --lightgray:#3C393F;
     --textcolor:#E0E0E0;
+    --textcolor2:#BDBDBD;
     --titlecolor:#828282;
     --buttoncolor:#2F80ED;
     --logoutcolor: #EB5757;

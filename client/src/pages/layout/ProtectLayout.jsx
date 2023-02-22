@@ -1,10 +1,10 @@
 import React from 'react'
 import {Outlet} from "react-router-dom"
-import SideBar from '../chatpage/SideBar'
+import ChatPage from '../chatpage/ChatPage'
 function ProtectLayout() {
   return (
     <div>
-      <SideBar/>
+      <ChatPage/>
       <Outlet/>
     </div>
   )
