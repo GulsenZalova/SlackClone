@@ -1,0 +1,11 @@
+.user-options{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--dark);
+    padding: 10px;
+}

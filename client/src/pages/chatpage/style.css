@@ -8,6 +8,7 @@
     width: 20%;
     background-color: var(--semidark);
     color:var(--textcolor);
+    overflow-y: scroll;
 }
 .room{
     width: 80%;
