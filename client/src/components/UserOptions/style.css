@@ -23,3 +23,8 @@ letter-spacing: -0.035em;
 .option-red{
     color: var(--logoutcolor);
 }
+
+.user-img img{
+    object-fit: cover;
+    border-radius: 8px;
+}

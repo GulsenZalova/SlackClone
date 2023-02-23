@@ -41,3 +41,67 @@ body {
     --logoutcolor: #EB5757;
   }
 
+  @media only screen and (max-width:1200px) {
+
+}
+
+@media only screen and (max-width:1024px) {
+    .sidebar{
+        width: 30%;
+    }
+    .room{
+        width: 70%;
+    }
+    .group-chat{
+        width: 70%;
+    }
+    .group-chat-name{
+        
+    }
+}
+
+@media only screen and (max-width:900px) {
+    .sidebar{
+       display: none;
+    }
+    .room{
+        width: 100%;
+    }
+    .group-chat-name{
+        width: 100%;
+    }
+    .group-chat {
+        width: 100%;
+    }
+    .messagge-form{
+        width: 90%;
+    }
+
+    .messagge-form input{
+        width: 90%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: var(--textcolor);
+    }
+    .messagge-form .send-btn{
+        width: 10%;
+        margin: auto;
+    }
+    .menubtn{
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
+  }

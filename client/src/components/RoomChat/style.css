@@ -5,6 +5,10 @@
     width: 95%;
 }
 .group-chat-name {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
     padding: 15px;
     background-color: var(--dark);
 }
@@ -12,14 +16,17 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    margin: 20px;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 .group-chat-messagge {
     display: flex;
     align-items: center;
     gap: 15px;
 }
-
+.messagge-info{
+    margin-top: 8px;
+}
 .messagge-desc {
     display: flex;
     align-items: center;
@@ -51,10 +58,10 @@ color: var(--textcolor);
 
 .messagge-form{
     width: 75%;
-    padding: 12px;
+    padding: 5px;
     background-color: var(--dark);
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
     border-radius: 8px;
 }
 .messagge-form input{
@@ -76,4 +83,21 @@ font-size: 14px;
 line-height: 19px;
 letter-spacing: -0.035em;
 color: var(--titlecolor);
+}
+
+.messagge-img img{
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.chat-title{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.menubtn{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    background-color: red;
 }

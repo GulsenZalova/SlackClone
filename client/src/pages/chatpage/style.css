@@ -5,6 +5,7 @@
 }
 
 .sidebar{
+    /* display: none; */
     width: 20%;
     background-color: var(--semidark);
     color:var(--textcolor);
@@ -16,3 +17,4 @@
     color:var(--textcolor);
     overflow-y: scroll;
 }
+

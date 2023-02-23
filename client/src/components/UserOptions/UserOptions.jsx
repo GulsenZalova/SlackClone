@@ -1,5 +1,5 @@
 import React from 'react'
-import user from "../../assets/images/user.svg"
+import user from "../../assets/images/user.png"
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -62,7 +62,7 @@ function UserOptions() {
     return (
         <div className='user-options'>
             <div className='user-img'>
-                <img src={user} alt="" style={{ width: "30px", height: "30px" }} />
+                <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
             </div>
             <div className='user-name' >
                 Xanthe Neal
