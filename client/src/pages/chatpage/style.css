@@ -14,5 +14,5 @@
     width: 80%;
     background-color: var(--lightgray);
     color:var(--textcolor);
-    
+    overflow-y: scroll;
 }

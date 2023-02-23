@@ -1,0 +1,79 @@
+.group-chat {
+}
+.chat-container{
+    margin: auto;
+    width: 95%;
+}
+.group-chat-name {
+    padding: 15px;
+    background-color: var(--dark);
+}
+.group-chat-messagges{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 20px;
+}
+.group-chat-messagge {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.messagge-desc {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sender-name {
+    font-family: NotoSans-SemiBold;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.035em;
+    color: var(--titlecolor);
+}
+
+.send-date {
+    font-family: NotoSans-Regular;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: -0.035em;
+    color:var(--titlecolor);
+}
+.messagge-content p{
+font-family: NotoSans-Regular;
+font-size: 18px;
+line-height: 25px;
+letter-spacing: -0.035em;
+color: var(--textcolor);
+}
+
+.messagge-form{
+    width: 75%;
+    padding: 12px;
+    background-color: var(--dark);
+    position: absolute;
+    bottom: 10px;
+    border-radius: 8px;
+}
+.messagge-form input{
+    width: 95%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--textcolor);
+}
+.messagge-form .send-btn{
+    border: none;
+   padding: 10px 15px;
+   border-radius: 8px;
+    background-color: var(--buttoncolor);
+} 
+.messagge-form input::placeholder{
+font-family: NotoSans-Regular;
+font-size: 14px;
+line-height: 19px;
+letter-spacing: -0.035em;
+color: var(--titlecolor);
+}

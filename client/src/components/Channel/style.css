@@ -11,11 +11,12 @@
     background-color: var(--dark);
 }
 
-.title {
+.sidebar-header .title {
     font-family: NotoSans-SemiBold;
     font-size: 18px;
     line-height: 25px;
-    letter-spacing: -0.035em
+    letter-spacing: -0.035em;
+    color: var(--titlecolor);
 }
 
 .addbtn {
