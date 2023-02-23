@@ -5,7 +5,7 @@ import Members from '../Members/Members';
 import "./style.css"
 import { useState } from 'react';
 function SideBar() {
-   const [visible,setVisible]=useState(true)
+   const [visible,setVisible]=useState(false)
   return (
         <div>
             {

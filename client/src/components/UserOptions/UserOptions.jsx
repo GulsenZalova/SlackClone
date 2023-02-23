@@ -4,7 +4,7 @@ import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {AccountCircle,ExitToApp,AttachFile} from '@mui/icons-material';
+import { AccountCircle, ExitToApp, AttachFile } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import "./style.css"
@@ -41,7 +41,7 @@ const StyledMenu = styled((props) => (
             },
             '&:active': {
                 backgroundColor: alpha(
-                   
+
                     theme.palette.primary.main,
                     theme.palette.action.selectedOpacity,
                 ),
@@ -77,9 +77,9 @@ function UserOptions() {
                     disableElevation
                     onClick={handleClick}
                     endIcon={<KeyboardArrowDownIcon />}
-                    style={{backgroundColor:"transparent",display:"flex",alignItems:"center",justifyContent:"center"}}
+                    style={{ backgroundColor: "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}
                 >
-                    
+
                 </Button>
                 <StyledMenu
                     id="demo-customized-menu"
@@ -89,19 +89,22 @@ function UserOptions() {
                     anchorEl={anchorEl}
                     open={open}
                     onClose={handleClose}
+                    PaperProps={{ sx: { backgroundColor: "#120F13" } }}
                 >
                     <MenuItem onClick={handleClose} disableRipple>
-                        <AccountCircle/>
-                        My Profile
+                        <AccountCircle style={{ fill: '#E0E0E0' }} />
+                        <span className='option-light'>My Profile</span>
                     </MenuItem>
                     <MenuItem onClick={handleClose} disableRipple>
-                        <AttachFile />
-                        Tweeter
+                        <AttachFile style={{ fill: '#E0E0E0' }} />
+                        <span className='option-light'>Tweeter</span>
                     </MenuItem>
-                    <Divider sx={{ my: 0.5 }} />
+                    <Divider sx={{ my: 0.5, backgroundColor: "#3C393F" }} />
                     <MenuItem onClick={handleClose} disableRipple>
-                        <ExitToApp/>
-                        <span >Logout</span>
+                        <button style={{ backgroundColor: "transparent", border: "none", display: "flex", alignItems: "center" }}>
+                            <ExitToApp style={{ fill: '#EB5757' }} />
+                            <span className='option-red'>Logout</span>
+                        </button>
                     </MenuItem>
                 </StyledMenu>
             </div>

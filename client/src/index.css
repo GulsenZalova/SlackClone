@@ -29,6 +29,7 @@ body {
 }
 
 :root {
+    --extradark: #120F13;
     --dark: #0B090C;
     --mediumdark: #333333;
     --semidark:#252329;

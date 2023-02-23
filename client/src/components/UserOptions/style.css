@@ -9,3 +9,17 @@
     background-color: var(--dark);
     padding: 10px;
 }
+
+.option-light,
+.option-red{
+font-family: NotoSans-Bold;
+font-size: 12px;
+line-height: 16px;
+letter-spacing: -0.035em;
+}
+.option-light{
+    color:var(--textcolor) ;
+}
+.option-red{
+    color: var(--logoutcolor);
+}

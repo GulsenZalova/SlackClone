@@ -58,7 +58,7 @@
     border: none;
 }
 
-::placeholder {
+.sidebar-main form input::placeholder {
     font-family: NotoSans-Medium;
     font-size: 14px;
     line-height: 19px;
@@ -90,15 +90,17 @@
     text-transform: uppercase;
     width: 42px;
     height: 42px;
+    font-size: 13px;
 }
 
 .group-name {
     font-family: NotoSans-SemiBold;
-    font-size: 15px;
+    font-size: 13px;
     line-height: 25px;
     letter-spacing: -0.035em;
     text-transform: uppercase;
     color: var(textcolor2);
+    word-wrap: none;
 }
 
 h3{
@@ -124,3 +126,30 @@ h3{
 .sidebar-description p{
     font-family: NotoSans-Regular;
 }
+
+.channel-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.channel-form input,
+.channel-form textarea
+{
+    padding: 10px;
+    background-color:var(--lightgray) ;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+.channel-form input::placeholder,
+.channel-form textarea::placeholder{
+font-family: NotoSans-Medium;
+font-size: 15px;
+line-height: 25px;
+letter-spacing: -0.035em;
+color: var(--titlecolor);
+}
+
