@@ -1,5 +1,4 @@
-.group-chat {
-}
+
 .chat-container{
     margin: auto;
     width: 95%;
@@ -9,7 +8,7 @@
     top: 0;
     right: 0;
     width: 80%;
-    padding: 15px;
+    padding: 10px;
     background-color: var(--dark);
 }
 .group-chat-messagges{
@@ -65,14 +64,16 @@ color: var(--textcolor);
     border-radius: 8px;
 }
 .messagge-form input{
-    width: 95%;
+    width: 90%;
     background-color: transparent;
     border: none;
     outline: none;
     color: var(--textcolor);
+    padding:0 15px;;
 }
 .messagge-form .send-btn{
     border: none;
+    width: 10%;
    padding: 10px 15px;
    border-radius: 8px;
     background-color: var(--buttoncolor);

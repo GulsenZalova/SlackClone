@@ -43,6 +43,17 @@ body {
 
   @media only screen and (max-width:1200px) {
 
+    .messagge-form input{
+        width: 90%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: var(--textcolor);
+    }
+    .messagge-form .send-btn{
+        width: 10%;
+        margin: auto;
+    }
 }
 
 @media only screen and (max-width:1024px) {
@@ -53,10 +64,30 @@ body {
         width: 70%;
     }
     .group-chat{
-        width: 70%;
+        width: 100%;
+    }
+    .user-options{
+        width: 30%;
+    }
+    .sidebar-header{
+        width: 30%;
     }
     .group-chat-name{
-        
+        width: 70%;
+    }
+    .messagge-form{
+        width: 60%;
+    }
+    .messagge-form input{
+        width: 90%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: var(--textcolor);
+    }
+    .messagge-form .send-btn{
+        width: 10%;
+        margin: auto;
     }
 }
 
@@ -92,8 +123,39 @@ body {
         visibility: visible;
         opacity: 1;
     }
+    .user-options{
+        width: 300px;
+        color: var(--textcolor2);
+    }
+    .sidebar-header{
+        width: 300px;
+    }
+    .sidebar-main{
+        color: var(--textcolor2);
+    }
 }
-
+@media only screen and (max-width:450px) {
+    .messagge-form input{
+        width: 80%;
+        padding:0 15px;
+    }
+    .messagge-form .send-btn{
+        width: 15%;
+    }
+    .group-chat-messagges{
+        font-size: 15px;
+        padding: 0 10px;
+    }
+    .sender-name{
+        font-size: 12px;
+    }
+    .sender-date{
+        font-size: 10px;
+    }
+    .messagge-content p{
+        font-size: 14px;
+    }
+}
 ::-webkit-scrollbar {
     width: 10px;
   }
