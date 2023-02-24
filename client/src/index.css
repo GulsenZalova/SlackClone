@@ -27,7 +27,10 @@
 body {
     font-family:NotoSans-Regular;
 }
-
+.link{
+    color: white;
+    text-decoration: none;
+}
 :root {
     --extradark: #120F13;
     --dark: #0B090C;
@@ -134,6 +137,30 @@ body {
         color: var(--textcolor2);
     }
 }
+@media only screen and (max-width:768px) {
+    .register-area{
+        width: 300px;
+        height:450px;
+    } 
+    .register-form{
+        gap: 20px;
+    }
+    .register-form input:not([type="file"]){
+        padding: 10px;
+    }
+    .label {
+        padding: 10px;
+    }
+    .submitbtn{
+        padding: 10px;
+    }
+    h1{
+        font-size: 15px;
+    }
+    .register-form input::placeholder{
+        font-size: 10px;
+    }
+}
 @media only screen and (max-width:450px) {
     .messagge-form input{
         width: 80%;
@@ -155,7 +182,33 @@ body {
     .messagge-content p{
         font-size: 14px;
     }
+    .register-area{
+        width: 250px;
+        height:350px;
+    } 
+    .register-form{
+        gap: 15px;
+    }
+    .register-form input:not([type="file"]){
+        padding: 5px;
+    }
+    label {
+        padding: 10px;
+        font-size: 10px;
+    }
+    .submitbtn{
+        padding: 5px;
+        font-size: 15px;
+    }
+    h1{
+        font-size: 15px;
+    }
+    .register-form input::placeholder{
+        font-size: 10px;
+    }
 }
+
+
 ::-webkit-scrollbar {
     width: 10px;
   }
