@@ -1,15 +1,15 @@
 const {authModel}=require("../models/authSchema")
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-let privateKey = "ironmaidenironmaidenironmaidenironmaiden";
+let privateKey = process.env.PRiVET_KEY;
 
 const transporter = nodemailer.createTransport({
   direct: true,
-  host: "smtp.mail.ru",
+  host: process.env.HOST,
   port: 465,
   auth: {
-    user: "aarizona3@mail.ru",
-    pass: "0bPD1xnaDfd52awVehKU",
+    user: process.env.USER,
+    pass: process.env.PASS,
   },
   secure: true,
 });
@@ -24,13 +24,32 @@ const authController = {
         else res.status(500).json(err);
       });
   },
+  register: async (req,res)=>{
+    const {email,username,password,image}=req.body
+    const user= await authModel.findOne({email:email})
+    if(!user){
+       const newAuth=new authModel({
+         email:email,
+         username:username,
+         password:password,
+         image:image
+       })
+        await newAuth.save((err,doc)=>{
+          if(err){
+            return res.status(500).json({
+              message:"err"
+            })
+          }else{
+            return res.status(201).json({
+              message:"succes"
+            })
+          }
+       })
+    }
+  },
   login: (req, res) => {
-    let email = req.body.email;
-    let password = req.body.password;
-    let username=req.body.username
-    let image=req.body.image
-    let isDeleted=req.body.isDeleted
-    authModel.findOne({ email: email, password: password,username:username,image:image,isDeleted:isDeleted}, (err, doc) => {
+    const {email,password}=req.body
+    authModel.findOne({ email: email, password: password}, (err, doc) => {
       if (!err) {
         if (doc) {
           console.log("doc", doc);
@@ -47,7 +66,7 @@ const authController = {
           });
 
           var mailOptions = {
-            from: "aarizona3@mail.ru",
+            from: process.env.USER,
             to: doc.email,
             subject: "Login Confirm Code",
             text: "Confirm Code: " + confirmCode,
