@@ -1,6 +1,7 @@
 const {authModel}=require("../models/authSchema")
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 let privateKey = process.env.PRiVET_KEY;
 
 const transporter = nodemailer.createTransport({
@@ -26,25 +27,33 @@ const authController = {
   },
   register: async (req,res)=>{
     const {email,username,password,image}=req.body
-    const user= await authModel.findOne({email:email})
-    if(!user){
-       const newAuth=new authModel({
-         email:email,
-         username:username,
-         password:password,
-         image:image
-       })
-        await newAuth.save((err,doc)=>{
-          if(err){
-            return res.status(500).json({
-              message:"err"
-            })
-          }else{
-            return res.status(201).json({
-              message:"succes"
-            })
-          }
-       })
+    try{
+      const user= await authModel.findOne({email:email})
+      if(user){
+        return res.status(500).json({
+          message:"This email is already registered"
+        }) 
+      }else{
+        const newAuth=new authModel({
+          email:email,
+          username:username,
+          password: await bcrypt.hash(password,10),
+          image:image
+        })
+          newAuth.save((err,doc)=>{
+           if(err){
+             return res.status(500).json({
+               message:"There was a problem during registration"
+             })
+           }else{
+             return res.status(201).json({
+               message:"succes"
+             })
+           }
+        })
+      }
+    }catch(error){
+      res.status(500).json(error);
     }
   },
   login: (req, res) => {

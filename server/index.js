@@ -13,50 +13,50 @@ const server = http.createServer(app);
 require("./config/database")
 let privateKey = process.env.PRiVET_KEY;
 
-// app.use((req, res, next) => {
+app.use((req, res, next) => {
 
-//   if (req.url == '/api/auth/login' || req.url == '/api/auth/confirmCode') {
-//    return next();
-//   }
+  if (req.url == '/api/auth/register' || req.url == '/api/auth/login' || req.url == '/api/auth') {
+   return next();
+  }
 
-//   let auth = req.headers.authorization?.split(' ');
-//   let token = '';
+  let auth = req.headers.authorization?.split(' ');
+  let token = '';
 
-//   if (auth) {
-//     if (auth.length == 2) {
-//       token = auth[1];
-//     }
-//     else {
-//       res.status(401).json({ 'message': 'Access Error!' })
-//     }
-//   }
-//   else {
-//     res.status(401).json({ 'message': 'Access Error!' })
-//   }
+  if (auth) {
+    if (auth.length == 2) {
+      token = auth[1];
+    }
+    else {
+      res.status(401).json({ 'message': 'Access Error!' })
+    }
+  }
+  else {
+    res.status(401).json({ 'message': 'Access Error!' })
+  }
 
 
 
-//   jwt.verify(token, privateKey, function (err, decode) {
-//     if (err) {
-//       res.status(401).json(err);
-//     }
-//     else {
-//         const newToken = jwt.sign({ email: decode.email }, privateKey, {
-//             expiresIn: "5h",
-//           });
-//           res.locals.token = newToken;
-//       next()
-//     }
-//   })
+  jwt.verify(token, privateKey, function (err, decode) {
+    if (err) {
+      res.status(401).json(err);
+    }
+    else {
+        const newToken = jwt.sign({ email: decode.email }, privateKey, {
+            expiresIn: "5h",
+          });
+          res.locals.token = newToken;
+      next()
+    }
+  })
 
-// })
+})
 
-// app.use((req, res, next) => {
-//     if (res.locals.token) {
-//       res.setHeader("Authorization", `Bearer ${res.locals.token}`);
-//     }
-//     next();
-//   });
+app.use((req, res, next) => {
+    if (res.locals.token) {
+      res.setHeader("Authorization", `Bearer ${res.locals.token}`);
+    }
+    next();
+  });
 
 app.get('/', function (req, res) {
     res.json("Hello");
