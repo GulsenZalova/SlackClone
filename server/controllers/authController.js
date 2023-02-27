@@ -37,7 +37,7 @@ const authController = {
         const newAuth=new authModel({
           email:email,
           username:username,
-          password: await bcrypt.hash(password,10),
+          password:password,
           image:image
         })
           newAuth.save((err,doc)=>{
@@ -103,7 +103,7 @@ const authController = {
       (err, doc) => {
         if (!err) {
           if (doc) {
-            let token = jwt.sign({ email: "a@a.com" }, privateKey, {
+            let token = jwt.sign({ email: doc.email }, privateKey, {
               algorithm: "HS256",
               expiresIn: "5h",
             });

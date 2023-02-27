@@ -15,11 +15,10 @@ const authSchema=new Schema({
         required:true
     },
     confirmCode: {
-        type:String,
-      
+        type:String
     },
     image:{
-        type:String,
+        type:Array,
         required:true
     },
     addDate: {

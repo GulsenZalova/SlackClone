@@ -8,7 +8,7 @@ function Entry() {
     <img src={slacklogo} alt="" style={{width:"300px",height:"300px"}} />
     <h4 className='title'>SLACK</h4>
     <p className='tagline'>Make work life simpler, more pleasant and more productive.</p>
-    <button className='startbtn'><Link className='link' to="/register">Get Started</Link></button>
+    <button className='startbtn'><Link className='link' to="/form">Get Started</Link></button>
   </div>
   )
 }

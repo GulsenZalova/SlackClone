@@ -15,7 +15,7 @@ let privateKey = process.env.PRiVET_KEY;
 
 app.use((req, res, next) => {
 
-  if (req.url == '/api/auth/register' || req.url == '/api/auth/login' || req.url == '/api/auth') {
+  if (req.url == '/api/auth/register' || req.url == '/api/auth/login' || req.url == '/api/auth'|| req.url == '/api/auth/confirmcode') {
    return next();
   }
 

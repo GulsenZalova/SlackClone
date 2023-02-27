@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import "./style.css"
+import { api } from '../../../network/api';
 
 const schema = yup.object({
   username: yup.string().required().min(3),
@@ -22,7 +23,20 @@ function Register({account,setAccount}) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
-  const onSubmit = data => console.log(data);
+  const onSubmit = data =>
+  { 
+    
+    api.add('/auth/register',data)
+    .then(res => {
+        setAccount(false)
+    })
+    .catch(err => {
+        console.log('Err', err);
+        alert('Email or password invalid!')
+    })
+    console.log(data)
+  
+  };
   const handleİmage = (e) => {
     const reader = new FileReader()
     reader.onload = () => {

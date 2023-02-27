@@ -1,5 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
+import { api } from '../../../network/api';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
@@ -9,10 +11,24 @@ const schema = yup.object({
   }).required();
 
 function Login({account,setAccount}) {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
       });
-      const onSubmit = data => console.log(data);
+      const onSubmit = data => {
+        
+        api.add('/auth/login', data)
+            .then(res => {
+                navigate('confirm', { state: { webUserId: res._id } })
+                alert("Success")
+            })
+            .catch(err => {
+                console.log('Err', err);
+                alert('Email or password invalid!')
+            })
+        console.log(data)
+    
+    };
 
     const handleClick=()=>{
         setAccount(true)
