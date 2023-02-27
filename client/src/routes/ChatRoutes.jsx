@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom"
-import Register from '../pages/login/Login/Register'
+import Form from '../pages/login/Form/Form'
 import Confirm from '../pages/login/Confirm/Confirm'
 import PublicLayout from '../pages/layout/PublicLayout'
 import ProtectLayout from '../pages/layout/ProtectLayout'
@@ -11,7 +11,7 @@ function ChatRoutes() {
         <div>
             <Routes element={<PublicLayout />}>
                 <Route path='/' element={<Entry />} />
-                <Route path='register' element={<Register />} />
+                <Route path='form' element={<Form />} />
                 <Route path='confirm' element={<Confirm />} />
             </Routes>
             <Routes path="/chat" element={<ProtectLayout />}>

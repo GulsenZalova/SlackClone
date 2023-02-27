@@ -46,7 +46,7 @@
 }
 
 
-label {
+.choosenlabel {
     background-color: var(--textcolor);
     color: var(--dark);
     text-align: left;
@@ -59,7 +59,7 @@ label {
     transition: all .3s ease;
   }
 
-  label:hover{
+  .choosenlabel:hover{
     background-color: transparent;
     color: var(--textcolor);
     border-color: var(--textcolor);
@@ -118,4 +118,13 @@ h1{
     color: darkred;
     font-size: 15px;
     width: 90%;
+}
+
+.route{
+    display: flex;
+    gap: 5px;
+    color: var(--textcolor);
+}
+.route span{
+    color: var(--buttoncolor);
 }
