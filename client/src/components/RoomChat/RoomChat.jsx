@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../SideBar/SideBar';
 import user from "../../assets/images/user.png"
 import {Send,Menu} from '@mui/icons-material';
@@ -13,10 +13,21 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import io from "socket.io-client"
+const socket=io("http://localhost:3000",{ transports: ['websocket', 'polling', 'flashsocket'] })
 import "./style.css"
+import { useState } from 'react';
 
 
 function RoomChat() {
+  const [value,setValue]=useState("")
+  const [room,setRoom]=useState(1)
+  const [messageList,setMessageList]=useState([])
+  useEffect(()=>{
+    socket.on("groupmessage",(res)=>{
+      setMessageList((prev)=>[...prev,res])
+    })
+  },[socket])
   const [state, setState] = React.useState({
     left: false,
   });
@@ -28,6 +39,23 @@ function RoomChat() {
   
     setState({ ...state, [anchor]: open });
   };
+
+  const sendMsg= async (e)=>{
+    e.preventDefault()
+    const messageContent={
+      username:"Gulsen",
+      message:value,
+      room:room,
+      image:"slack.svg",
+      date:(new Date(Date.now())).getHours()+":"+(new Date(Date.now())).getMinutes()
+    }
+    if(value!=""){
+     await socket.emit("send",messageContent)
+     setMessageList((prev)=>[...prev,messageContent])
+      setValue("")
+    }
+    socket.emit("room",room)
+  }
 
   return (
     <div className='group-chat'>
@@ -63,242 +91,32 @@ function RoomChat() {
       </div>
       <div className='chat-container'>
         <div className='group-chat-messagges'>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
+    {
+      messageList && (
+        messageList.map((msg,i)=>(
+          <div className='group-chat-messagge' key={i}>
+          <div className='messagge-img'>
+            <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
+          </div>
+          <div className='messagge-info'>
+            <div className='messagge-desc'>
+              <span className='sender-name'>{msg.username}</span>
+              <span className='send-date'>{msg.date}</span>
             </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
+            <div className='messagge-content'>
+              <p>{msg.message}</p>
             </div>
           </div>
-
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀</p>
-              </div>
-            </div>
-          </div>
-          <div className='group-chat-messagge'>
-            <div className='messagge-img'>
-              <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
-            </div>
-            <div className='messagge-info'>
-              <div className='messagge-desc'>
-                <span className='sender-name'>Nellie Francis</span>
-                <span className='send-date'>yesterday at 2:29 AM</span>
-              </div>
-              <div className='messagge-content'>
-                <p>Suspendisse enim tellus, elementum quis dictum sed, sodales at mauris 😀
-                </p>
-              </div>
-            </div>
-          </div>
-          
+        </div>
+        ))
+      )
+    }
         </div>
       </div>
       <div className='chat-container'>
         <form className='messagge-form'>
-          <input type="text" placeholder='Type a message here' />
-          <button className='send-btn'><Send style={{color:"white",fontSize:"17px"}}/></button>
+          <input type="text" value={value} onChange={(e)=>setValue(e.target.value)} placeholder='Type a message here' />
+          <button className='send-btn' onClick={sendMsg}><Send style={{color:"white",fontSize:"17px"}}/></button>
         </form>
       </div>
       <div>
