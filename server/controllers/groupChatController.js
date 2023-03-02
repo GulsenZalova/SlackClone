@@ -52,7 +52,7 @@ const groupChatController = {
                     const channelInfo = {
                         id: channelData._id,
                         name: channelData.channelName,
-                        description: channelDescription
+                        description: channelData.channelDescription
                     }
                     channels.push(channelInfo)
                 })

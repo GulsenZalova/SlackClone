@@ -8,14 +8,48 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import {axiosInstance} from "../../network/axiosInstance"
 import "./style.css"
+import { useEffect } from 'react';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
 
+
 function Channel() {
+    const [channels,setChannels]=useState([])
     const [open, setOpen] = useState(false);
+    const [newChannel,setNewChannel]=useState({
+      channelName:"",
+      channelDescription:""
+    })
+
+    useEffect(()=>{
+      axiosInstance.get("/group/get/channelList").then((res)=>{
+        setChannels(res.data)
+      })
+    },[channels])
+
+    const handleChange=(e)=>{
+      let name=e.target.name
+      let value=e.target.value
+
+      setNewChannel({
+        ...newChannel,
+        [name]:value
+      })
+
+    }
+
+    const handleSubmit=()=>{
+       if(newChannel.channelName!="" && newChannel.channelDescription!=""){
+        axiosInstance.post("/group/new/newchannel",{
+          channelName:newChannel.channelName,
+          channelDescription:newChannel.channelDescription
+        })
+       }
+    }
     const handleClickOpen = () => {
         setOpen(true);
       };
@@ -35,11 +69,18 @@ function Channel() {
                 <input type="text" placeholder='search' />
             </form>
             <div className='sidebar-group'>
-                <div className='sidebar-group-item'>
-                    <span className='group-logo'>FD</span>
-                    <span className='group-name'>Front-end developers</span>
+              {
+                channels && (
+                   channels.map(channel=>(
+                    <div className='sidebar-group-item'>
+                    <span className='group-logo'>{channel.name[0]}</span>
+                    <span className='group-name'>{channel.name}</span>
                 </div>
-                <div className='sidebar-group-item'>
+                   ))
+                )
+              }
+              
+                {/* <div className='sidebar-group-item'>
                     <span className='group-logo'>R</span>
                     <span className='group-name'>random</span>
                 </div>
@@ -54,7 +95,7 @@ function Channel() {
                 <div className='sidebar-group-item'>
                     <span className='group-logo'>W</span>
                     <span className='group-name'>welcome</span>
-                </div>
+                </div> */}
                 
             </div>
         </div>
@@ -69,9 +110,9 @@ function Channel() {
         <DialogTitle style={{color:"#F2F2F2",fontSize:"18px"}}>{"New Channel"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <form className='channel-form'>
-            <input type="text" placeholder='Channel name' />
-            <textarea name="" id="" cols="60" rows="5" placeholder='Channel Description'></textarea>
+            <form className='channel-form' onSubmit={handleSubmit}>
+            <input type="text" name='name' placeholder='Channel name' onChange={handleChange} />
+            <textarea name="description"  id="" cols="60" rows="5" placeholder='Channel Description' onChange={handleChange}></textarea>
             </form>
           </DialogContentText>
         </DialogContent>
