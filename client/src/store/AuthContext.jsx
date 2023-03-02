@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
         loginStatus,
         register,
         setloginStatus,
-        setResgister
+        setResgister,
     }
     return <authContext.Provider value={value}>{children}</authContext.Provider>
 

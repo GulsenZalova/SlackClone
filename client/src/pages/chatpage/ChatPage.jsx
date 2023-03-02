@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Room from '../../components/Room/Room'
 import SideBar from '../../components/SideBar/SideBar'
 import "./style.css"
@@ -9,7 +9,7 @@ function ChatPage() {
                 <SideBar />
             </div>
             <div className='room'>
-                <Room />
+                <Room/>
             </div>
         </div>
     )

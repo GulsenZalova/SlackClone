@@ -1,33 +1,37 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import SideBar from '../SideBar/SideBar';
 import user from "../../assets/images/user.png"
 import {Send,Menu} from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import io from "socket.io-client"
+import { axiosInstance } from "../../network/axiosInstance"
+import { chatContext } from '../../store/ChatContext';
 const socket=io("http://localhost:3000",{ transports: ['websocket', 'polling', 'flashsocket'] })
 import "./style.css"
 import { useState } from 'react';
 
 
 function RoomChat() {
+  const {roomID,setRoomID}=useContext(chatContext)
   const [value,setValue]=useState("")
-  const [room,setRoom]=useState(1)
-  const [messageList,setMessageList]=useState([])
+  const [roomDetails,setRoomDetails]=useState(null)
+  const [roomMessages,setMessages]=useState([])
   useEffect(()=>{
     socket.on("groupmessage",(res)=>{
-      setMessageList((prev)=>[...prev,res])
+      setMessages((prev)=>[...prev,res])
     })
   },[socket])
+  useEffect(()=>{
+    axiosInstance.get(`/group/get/conservation?id=${roomID}`).then((res)=>{
+      setRoomDetails(res.data[0].channelName)
+      setMessages(res.data[0].conservation)
+    })
+    console.log(roomDetails)
+    console.log(roomMessages)
+  },[roomID])
+
   const [state, setState] = React.useState({
     left: false,
   });
@@ -45,16 +49,16 @@ function RoomChat() {
     const messageContent={
       username:"Gulsen",
       message:value,
-      room:room,
+      room:roomID,
       image:"slack.svg",
       date:(new Date(Date.now())).getHours()+":"+(new Date(Date.now())).getMinutes()
     }
     if(value!=""){
      await socket.emit("send",messageContent)
-     setMessageList((prev)=>[...prev,messageContent])
+     setMessages((prev)=>[...prev,messageContent])
       setValue("")
     }
-    socket.emit("room",room)
+    socket.emit("room",roomID)
   }
 
   return (
@@ -85,23 +89,23 @@ function RoomChat() {
         </React.Fragment>
       ))}
            </div>
-          <h3>Front-end developers</h3>
+          <h3>{roomDetails}</h3>
         </div>
         </div>
       </div>
       <div className='chat-container'>
         <div className='group-chat-messagges'>
     {
-      messageList && (
-        messageList.map((msg,i)=>(
+      roomMessages && (
+        roomMessages.map((msg,i)=>(
           <div className='group-chat-messagge' key={i}>
           <div className='messagge-img'>
             <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
           </div>
           <div className='messagge-info'>
             <div className='messagge-desc'>
-              <span className='sender-name'>{msg.username}</span>
-              <span className='send-date'>{msg.date}</span>
+              <span className='sender-name'>{msg?.username}</span>
+              <span className='send-date'>{msg?.date}</span>
             </div>
             <div className='messagge-content'>
               <p>{msg.message}</p>

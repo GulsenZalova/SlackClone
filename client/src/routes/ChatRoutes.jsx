@@ -15,7 +15,7 @@ function ChatRoutes() {
                 <Route path='form/confirm' element={<Confirm />} />
             </Routes>
             <Routes path="/chat" element={<ProtectLayout />}>
-                <Route path='home' element={<ChatPage/>} />
+                <Route path='home' element={<ChatPage/>}/>
             </Routes>
         </div>
     )
