@@ -2,18 +2,20 @@ const express = require("express")
 const dotenv = require("dotenv").config()
 const { default: mongoose } = require("mongoose")
 const authRouter = require("./routes/authRouter")
+const groupChatRouter=require("./routes/groupChatRouter")
 const cors = require("cors")
 const jwt = require("jsonwebtoken")
 const app = express()
 const PORT = process.env.PORT
-app.use(cors())
-app.use(express.json());
-app.use(express.urlencoded())
 const http = require('http').Server(app);
 const io = require("socket.io")(http)
 require("./config/database")
 let privateKey = process.env.PRiVET_KEY;
+const {chatModel}=require("./models/groupChatSchema")
 
+app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded())
 // app.use((req, res, next) => {
 
 //   if (req.url == '/api/auth/register' || req.url == '/api/auth/login' || req.url == '/api/auth'|| req.url == '/api/auth/confirmcode') {
@@ -73,6 +75,7 @@ app.get('/', function (req, res) {
   res.json("Hello WORLD");
 })
 app.use("/api/auth", authRouter);
+app.use("/api/group",groupChatRouter)
 
 http.listen(PORT, () => {
   console.log(`Server is running on port:${PORT}`)

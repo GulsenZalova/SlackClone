@@ -25,6 +25,15 @@ const authController = {
         else res.status(500).json(err);
       });
   },
+  getUser:(res,req)=>{
+    const userId=req.params.userId
+    try{
+      const user=authModel.findById(userId)
+      res.status(200).json(user)
+    }catch(error){
+      res.status(500).json(error)
+    }
+  },
   register: async (req,res)=>{
     const {email,username,password,image}=req.body
     try{
