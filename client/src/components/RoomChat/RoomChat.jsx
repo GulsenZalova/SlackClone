@@ -47,15 +47,22 @@ function RoomChat() {
   const sendMsg= async (e)=>{
     e.preventDefault()
     const messageContent={
-      username:"Gulsen",
+      user:"Gulsen",
       message:value,
       room:roomID,
-      image:"slack.svg",
-      date:(new Date(Date.now())).getHours()+":"+(new Date(Date.now())).getMinutes()
+      userİmage:"slack.svg",
+      timeStamp:(new Date(Date.now())).getHours()+":"+(new Date(Date.now())).getMinutes()
     }
     if(value!=""){
      await socket.emit("send",messageContent)
      setMessages((prev)=>[...prev,messageContent])
+     axiosInstance.post(`/group/new/newmessage?id=${roomID}`,{
+      user:"Gulsen",
+      message:value,
+      room:roomID,
+      userİmage:"slack.svg",
+      timeStamp:(new Date(Date.now())).getHours()+":"+(new Date(Date.now())).getMinutes()
+     })
       setValue("")
     }
     socket.emit("room",roomID)
@@ -104,11 +111,11 @@ function RoomChat() {
           </div>
           <div className='messagge-info'>
             <div className='messagge-desc'>
-              <span className='sender-name'>{msg?.username}</span>
-              <span className='send-date'>{msg?.date}</span>
+              <span className='sender-name'>{msg?.user}</span>
+              <span className='send-date'>{msg?. timeStamp}</span>
             </div>
             <div className='messagge-content'>
-              <p>{msg.message}</p>
+              <p>{msg?.message}</p>
             </div>
           </div>
         </div>

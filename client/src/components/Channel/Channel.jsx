@@ -17,7 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function Channel() {
-  const {setRoomID}=useContext(chatContext)
+  const {setRoomID,setVisible}=useContext(chatContext)
   const [channels, setChannels] = useState([])
   const [open, setOpen] = useState(false);
   const [newChannel, setNewChannel] = useState({
@@ -66,6 +66,7 @@ function Channel() {
   const handleChannelInfo=(channel)=>{
     console.log(channel.id)
     setRoomID(channel.id)
+    setVisible(false)
   }
   return (
     <div className='side'>
