@@ -60,8 +60,9 @@ color: var(--textcolor);
     padding: 5px;
     background-color: var(--dark);
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
     border-radius: 8px;
+    display: flex;
 }
 .messagge-form input{
     width: 90%;
@@ -70,11 +71,18 @@ color: var(--textcolor);
     outline: none;
     color: var(--textcolor);
     padding:0 15px;;
+
+}
+.senddiv{
+    width:10% ;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
 }
 .messagge-form .send-btn{
     border: none;
-    width: 10%;
-   padding: 10px 15px;
+   padding:10px;
    border-radius: 8px;
     background-color: var(--buttoncolor);
 } 

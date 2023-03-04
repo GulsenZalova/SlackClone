@@ -34,7 +34,8 @@ function Register({account,setAccount}) {
         console.log('Err', err);
         alert('Email or password invalid!')
     })
-    console.log(data)
+   
+    localStorage.setItem('user', JSON.stringify(data));
   
   };
   const handleİmage = (e) => {
