@@ -15,6 +15,7 @@ const groupChatController = {
     newMessage: (req, res) => {
         const id = req.query.id
         const newMessage = req.body
+        console.log(req.body)
         groupChatModel.updateOne(
             { _id: id },
             { $push: { conservation: newMessage } },

@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, Types } = require("mongoose");
 const Schema=mongoose.Schema
 
 
@@ -7,10 +7,10 @@ const shcema= new Schema({
     channelDescription:String,
     conservation:[
         {
-            message:String,
+            message:Schema.Types.Mixed,
             timeStamp:String,
             user:String,
-            userİmage: String  
+            userİmage: String, 
         }
     ],
     members:[

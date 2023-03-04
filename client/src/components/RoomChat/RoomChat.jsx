@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import io from "socket.io-client"
+import Message from '../Message/Message';
 import { axiosInstance } from "../../network/axiosInstance"
 import { chatContext } from '../../store/ChatContext';
 const socket = io("http://localhost:3000", { transports: ['websocket', 'polling', 'flashsocket'] })
@@ -17,12 +18,14 @@ function RoomChat() {
   const { roomID, setRoomID } = useContext(chatContext)
   const [value, setValue] = useState("")
   const [roomDetails, setRoomDetails] = useState(null)
+  const [file,setFile]=useState(null)
   const [roomMessages, setMessages] = useState([])
   useEffect(() => {
     socket.on("groupmessage", (res) => {
       setMessages((prev) => [...prev, res])
     })
   }, [socket])
+
   useEffect(() => {
     axiosInstance.get(`/group/get/conservation?id=${roomID}`).then((res) => {
       setRoomDetails(res.data[0].channelName)
@@ -46,28 +49,59 @@ function RoomChat() {
 
   const sendMsg = async (e) => {
     e.preventDefault()
-    const messageContent = {
-      user: "Gulsen",
-      message: value,
-      room: roomID,
-      userİmage: "slack.svg",
-      timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
-    }
-    if (value != "") {
-      await socket.emit("send", messageContent)
-      setMessages((prev) => [...prev, messageContent])
-      axiosInstance.post(`/group/new/newmessage?id=${roomID}`, {
+    console.log(file)
+    if(file){
+      const messageContent = {
         user: "Gulsen",
-        message: value,
+        message: file,
+        type:"file",
         room: roomID,
         userİmage: "slack.svg",
         timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
-      })
-      setValue("")
+      }
+        await socket.emit("send", messageContent)
+        setMessages((prev) => [...prev, messageContent])
+        axiosInstance.post(`/group/new/newmessage?id=${roomID}`, {
+          user: "Gulsen",
+          message: file,
+          type:"file",
+          room: roomID,
+          userİmage: "slack.svg",
+          timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
+        })
+        setValue("")
+        // setFile()
+    }else{
+      const messageContent = {
+        user: "Gulsen",
+        message: value,
+        type:"text",
+        room: roomID,
+        userİmage: "slack.svg",
+        timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
+      }
+      if (value != "") {
+        await socket.emit("send", messageContent)
+        setMessages((prev) => [...prev, messageContent])
+        axiosInstance.post(`/group/new/newmessage?id=${roomID}`, {
+          user: "Gulsen",
+          message: value,
+          type:"text",
+          room: roomID,
+          userİmage: "slack.svg",
+          timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
+        })
+        setValue("")
+      }
     }
     socket.emit("room", roomID)
   }
 
+   const sendFile=(e)=>{
+    console.log(e.target.files[0])
+    setValue(e.target.files[0])
+    setFile(e.target.files[0])
+   }
   return (
     <div className='group-chat'>
       <div className='group-chat-name'>
@@ -115,7 +149,13 @@ function RoomChat() {
                       <span className='send-date'>{msg?.timeStamp}</span>
                     </div>
                     <div className='messagge-content'>
-                      <p>{msg?.message}</p>
+                          {
+                            msg.type=="file" ? (
+                              <Message message={msg.message}/>
+                            ): (
+                              <p>{msg?.message}</p>
+                            )
+                          }
                     </div>
                   </div>
                 </div>
@@ -128,10 +168,10 @@ function RoomChat() {
         <form className='messagge-form'>
           <input type="text" value={value} onChange={(e) => setValue(e.target.value)} placeholder='Type a message here' />
           <div className='senddiv'>
-          <label for="file-input" >
+          <label htmlFor="file-input" >
             <PermMedia />
           </label>
-          <input id="file-input" hidden type="file" />
+          <input id="file-input" onChange={sendFile} hidden type="file" />
           <button className='send-btn' onClick={sendMsg}><Send style={{ color: "white", fontSize: "17px" }} /></button>
           </div>
         </form>
