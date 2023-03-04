@@ -20,12 +20,13 @@ function Channel() {
   const {setRoomID,setVisible}=useContext(chatContext)
   const [channels, setChannels] = useState([])
   const [open, setOpen] = useState(false);
+  const [search,setSeacrh]=useState("")
   const [newChannel, setNewChannel] = useState({
     channelName: "",
     channelDescription: ""
   })
   useEffect(() => {
-    axiosInstance.get("/group/get/channelList").then((res) => {
+    axiosInstance.get(`/group/get/channelList?channelName=${search}`).then((res) => {
       setChannels(res.data)
     })
   }, [channels])
@@ -68,6 +69,9 @@ function Channel() {
     setRoomID(channel.id)
     setVisible(false)
   }
+  const handleSearch=(e)=>{
+    setSeacrh(e.target.value)
+  }
   return (
     <div className='side'>
       <div className='sidebar-header'>
@@ -77,7 +81,7 @@ function Channel() {
       <div className='sidebar-main'>
         <form>
           <button><Search style={{ width: "19px", height: "19px" }} /></button>
-          <input type="text" placeholder='search' />
+          <input type="text" placeholder='search' onChange={handleSearch} />
         </form>
         <div className='sidebar-group'>
           {

@@ -44,7 +44,8 @@ const groupChatController = {
         )
     },
     getChannelList: (req, res) => {
-        groupChatModel.find((err, data) => {
+        const channelName = req.query.channelName
+        groupChatModel.find({channelName: {$regex:channelName,$options:"$i"}}).exec((err, data) => {
             if (err) {
                 res.status(500).send(err)
             } else {
@@ -63,7 +64,7 @@ const groupChatController = {
     },
     getConservation: (req, res) => {
         const id = req.query.id
-        groupChatModel.find({ _id: id }, (err, data) => {
+        groupChatModel.find({ _id: id}, (err, data) => {
             if (err) {
                 res.status(500).send(err)
             } else {
