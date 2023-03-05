@@ -18,7 +18,7 @@ function RoomChat() {
   const { roomID, setRoomID } = useContext(chatContext)
   const [value, setValue] = useState("")
   const [roomDetails, setRoomDetails] = useState(null)
-  const [file,setFile]=useState(null)
+  const [file,setFile]=useState()
   const [roomMessages, setMessages] = useState([])
   useEffect(() => {
     socket.on("groupmessage", (res) => {
@@ -31,8 +31,8 @@ function RoomChat() {
       setRoomDetails(res.data[0].channelName)
       setMessages(res.data[0].conservation)
     })
-    console.log(roomDetails)
-    console.log(roomMessages)
+    // console.log(roomDetails)
+    // console.log(roomMessages)
   }, [roomID])
 
   const [state, setState] = React.useState({
@@ -70,7 +70,7 @@ function RoomChat() {
           timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
         })
         setValue("")
-        // setFile()
+        setFile()
     }else{
       const messageContent = {
         user: "Gulsen",
@@ -78,6 +78,7 @@ function RoomChat() {
         type:"text",
         room: roomID,
         userİmage: "slack.svg",
+        liked:false,
         timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
       }
       if (value != "") {
@@ -89,6 +90,7 @@ function RoomChat() {
           type:"text",
           room: roomID,
           userİmage: "slack.svg",
+          liked:false,
           timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
         })
         setValue("")
@@ -153,7 +155,7 @@ function RoomChat() {
                             msg.type=="file" ? (
                               <Message message={msg.message}/>
                             ): (
-                              <p>{msg?.message}</p>
+                              <p onClick={(e)=>{console.log(msg)}}>{msg?.message}</p>
                             )
                           }
                     </div>
@@ -184,3 +186,4 @@ function RoomChat() {
 }
 
 export default RoomChat
+

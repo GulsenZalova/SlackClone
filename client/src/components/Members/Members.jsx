@@ -1,11 +1,24 @@
 import React from 'react'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { chatContext } from '../../store/ChatContext';
+import {axiosInstance} from "../../network/axiosInstance"
 import "./style.css"
+import { useEffect,useState,useContext} from 'react';
 function Members() {
+    const { roomID,setVisible} = useContext(chatContext)
+    const [members,setMembers]=useState([])
+    useEffect(()=>{
+        axiosInstance.get(`/group/get/members?id=${roomID}`).then((res) => {
+            setMembers(res.data[0].members)
+          })
+    },[roomID])
+    const handleClose=()=>{
+        setVisible(true)
+    }
   return (
       <div className='side'>
          <div className='sidebar-header'>
-            <button className='addbtn'>< ArrowBackIosIcon  style={{width:"20px",height:"20px"}}/></button>
+            <button className='addbtn' onClick={handleClose}>< ArrowBackIosIcon  style={{width:"20px",height:"20px"}}/></button>
             <span className='title'>All Channels</span>
         </div> 
         <div className='sidebar-main'>
@@ -17,27 +30,18 @@ function Members() {
                 <h3>Members</h3>
             </div>
             <div className='sidebar-group'>
-                <div className='sidebar-group-item'>
-                    <span className='group-logo'>FD</span>
-                    <span className='group-name'>Xanthe Neal</span>
-                </div>
-                <div className='sidebar-group-item'>
-                    <span className='group-logo'>R</span>
-                    <span className='group-name'>Nellie Francis</span>
-                </div>
-                <div className='sidebar-group-item'>
-                    <span className='group-logo'>B</span>
-                    <span className='group-name'>Denzel Barrett</span>
-                </div>
-                <div className='sidebar-group-item'>
-                    <span className='group-logo'>CD</span>
-                    <span className='group-name'>Shaunna Firth</span>
-                </div>
-                <div className='sidebar-group-item'>
-                    <span className='group-logo'>W</span>
-                    <span className='group-name'>Annaliese Huynh</span>
-                </div>
-                
+                {
+                    members.length>0 ? (
+                        members.map((member,index)=>(
+                            <div className='sidebar-group-item' key={index}>
+                            <span className='group-logo'>{member.userName.split(" ").map(x=>x[0])}</span>
+                            <span className='group-name'>{member.userName}</span>
+                        </div>
+                        ))
+                    ):(
+                        <h5>There are no users in the group</h5>
+                    )
+                }
             </div>
         </div>
     </div>

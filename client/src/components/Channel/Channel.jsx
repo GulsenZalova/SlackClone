@@ -17,7 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function Channel() {
-  const {setRoomID,setVisible}=useContext(chatContext)
+  const {setRoomID,setVisible,setShowChat}=useContext(chatContext)
   const [channels, setChannels] = useState([])
   const [open, setOpen] = useState(false);
   const [search,setSeacrh]=useState("")
@@ -65,9 +65,9 @@ function Channel() {
     handleClose()
   }
   const handleChannelInfo=(channel)=>{
-    console.log(channel.id)
     setRoomID(channel.id)
     setVisible(false)
+    setShowChat(false)
   }
   const handleSearch=(e)=>{
     setSeacrh(e.target.value)

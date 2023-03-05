@@ -8,6 +8,4 @@ router.get("/get/members",groupChatController.getMembers)
 router.post("/new/newchannel",groupChatController.newChannel)
 router.post("/new/newmessage",groupChatController.newMessage)
 router.post("/new/newmember",groupChatController.newMember)
-
-
 module.exports=router
