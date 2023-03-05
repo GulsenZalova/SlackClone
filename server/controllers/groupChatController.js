@@ -28,20 +28,20 @@ const groupChatController = {
             }
         )
     },
-    newMember: (req, res) => {
+    newMember:(req, res) => {
         const id = req.query.id
         const newMember = req.body
-        groupChatModel.updateOne(
-            { _id: id },
-            { $push: { members: newMember } },
-            (err, data) => {
-                if (err) {
-                    res.status(500).send(err)
-                } else {
-                    res.status(201).send(data)
+         groupChatModel.updateOne(
+                { _id: id },
+                { $push: { members: newMember } },
+                (err, data) => {
+                    if (err) {
+                        res.status(500).send(err)
+                    } else {
+                        res.status(201).send(data)
+                    }
                 }
-            }
-        )
+     )
     },
     getChannelList: (req, res) => {
         const channelName = req.query.channelName

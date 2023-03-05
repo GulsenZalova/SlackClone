@@ -17,7 +17,8 @@ const shcema= new Schema({
     members:[
         {
             userName:String,
-            userİmage:String
+            userİmage:String,
+            email:String
         }
     ]
 })

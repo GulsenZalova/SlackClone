@@ -17,9 +17,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function Channel() {
-  const {setRoomID,setVisible,setShowChat}=useContext(chatContext)
+  const {roomID,setRoomID,setVisible,setShowChat}=useContext(chatContext)
   const [channels, setChannels] = useState([])
   const [open, setOpen] = useState(false);
+  const [members,setMembers]=useState([])
   const [search,setSeacrh]=useState("")
   const [newChannel, setNewChannel] = useState({
     channelName: "",
@@ -31,6 +32,11 @@ function Channel() {
     })
   }, [channels])
 
+  useEffect(()=>{
+    axiosInstance.get(`/group/get/members?id=${roomID}`).then((res) => {
+      setMembers(res.data[0].members)
+    })
+  },[roomID])
   const handleChange = (e) => {
     let name = e.target.name
     let value = e.target.value
@@ -65,9 +71,20 @@ function Channel() {
     handleClose()
   }
   const handleChannelInfo=(channel)=>{
+    console.log(channel.id)
     setRoomID(channel.id)
     setVisible(false)
     setShowChat(false)
+    console.log(members)
+    const findMember=members.find((member)=>member.email=="zalova050505@gmail.com")
+    console.log(findMember)
+    if(!findMember){
+      axiosInstance.post(`/group/new/newmember?id=${roomID}`, {
+      userName: "camal",
+      email:"zalova050505@gmail.com",
+      userİmage: "slack.svg",
+    })
+    }
   }
   const handleSearch=(e)=>{
     setSeacrh(e.target.value)
