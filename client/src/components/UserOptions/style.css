@@ -9,7 +9,18 @@
     background-color: var(--dark);
     padding: 10px;
 }
-
+.name-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--lightgray);
+    padding: 5px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    width: 42px;
+    height: 42px;
+    font-size: 13px;
+}
 .option-light,
 .option-red{
 font-family: NotoSans-Bold;

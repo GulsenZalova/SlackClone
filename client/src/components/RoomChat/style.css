@@ -73,6 +73,18 @@ color: var(--textcolor);
     padding:0 15px;;
 
 }
+.user-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark);
+    padding: 5px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    width: 42px;
+    height: 42px;
+    font-size: 15px;
+}
 .senddiv{
     width:10% ;
     display: flex;

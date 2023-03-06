@@ -15,11 +15,16 @@ import { useState } from 'react';
 
 
 function RoomChat() {
-  const { roomID, setRoomID } = useContext(chatContext)
+  const { roomID} = useContext(chatContext)
   const [value, setValue] = useState("")
   const [roomDetails, setRoomDetails] = useState(null)
-  const [file,setFile]=useState()
   const [roomMessages, setMessages] = useState([])
+  const [userInfo,setUserİnfo]=useState(null)
+  
+  useEffect(()=>{
+      const info=JSON.parse(localStorage.getItem("user"))
+      setUserİnfo(info)
+  },[])
   useEffect(() => {
     socket.on("groupmessage", (res) => {
       setMessages((prev) => [...prev, res])
@@ -48,44 +53,25 @@ function RoomChat() {
   };
 
   const sendMsg = async (e) => {
+    const info=JSON.parse(localStorage.getItem("user"))
+    setUserİnfo(info)
     e.preventDefault()
-    console.log(file)
-    if(file){
       const messageContent = {
-        user: "Gulsen",
-        message: file,
-        type:"file",
-        room: roomID,
-        userİmage: "slack.svg",
-        timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
-      }
-        await socket.emit("send", messageContent)
-        setMessages((prev) => [...prev, messageContent])
-        axiosInstance.post(`/group/new/newmessage?id=${roomID}`, {
-          user: "Gulsen",
-          message: file,
-          type:"file",
-          room: roomID,
-          userİmage: "slack.svg",
-          timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
-        })
-        setValue("")
-        setFile()
-    }else{
-      const messageContent = {
-        user: "Gulsen",
+        user: info.username,
         message: value,
         type:"text",
         room: roomID,
         userİmage: "slack.svg",
         liked:false,
-        timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
+        timeStamp:  (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
+        
       }
+      console.log(messageContent)
       if (value != "") {
         await socket.emit("send", messageContent)
         setMessages((prev) => [...prev, messageContent])
         axiosInstance.post(`/group/new/newmessage?id=${roomID}`, {
-          user: "Gulsen",
+          user: info.username,
           message: value,
           type:"text",
           room: roomID,
@@ -95,7 +81,6 @@ function RoomChat() {
         })
         setValue("")
       }
-    }
     socket.emit("room", roomID)
   }
 
@@ -143,7 +128,7 @@ function RoomChat() {
               roomMessages.map((msg, i) => (
                 <div className='group-chat-messagge' key={i}>
                   <div className='messagge-img'>
-                    <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
+                    <span className='user-title'>{msg?.user?.split(" ").map(x=>x[0])}</span>
                   </div>
                   <div className='messagge-info'>
                     <div className='messagge-desc'>

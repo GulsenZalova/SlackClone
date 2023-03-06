@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/', authController.getAll);
 router.get("/find/:userId",authController.getUser)
 router.post('/login', authController.login);
-router.post('/register', authController.register);
+router.post('/register',authController.register);
 router.post('/confirmcode', authController.confirmCode);
 
 

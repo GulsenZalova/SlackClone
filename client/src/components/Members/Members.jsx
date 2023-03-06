@@ -11,12 +11,12 @@ function Members() {
         axiosInstance.get(`/group/get/members?id=${roomID}`).then((res) => {
             setMembers(res.data[0].members)
           })
-          console.log(members)
+        //   console.log(members)
     },[roomID])
     const handleClose=()=>{
         setVisible(true)
     }
-    console.log(members)
+    // console.log(members)
   return (
       <div className='side'>
          <div className='sidebar-header'>

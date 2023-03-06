@@ -1,8 +1,18 @@
 const {authModel}=require("../models/authSchema")
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const multer=require("multer")
+const path=require("path")
 let privateKey = process.env.PRiVET_KEY;
+
+const storage=multer.diskStorage({
+  destination:(req,file,cb)=>{
+    cb(null,"Images")
+  },
+  filename:(req,file,cb)=>{
+    cb(null,Date.now() + path.extname(file.originalname))
+  }
+})
 
 const transporter = nodemailer.createTransport({
   direct: true,

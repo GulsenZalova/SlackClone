@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { useForm } from "react-hook-form";
+import { authContext } from '../../../store/AuthContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import "./style.css"
@@ -20,23 +21,23 @@ const schema = yup.object({
 
 function Register({account,setAccount}) {
   const [selectimage, setSelectİmage] = useState("")
+  const {setUser}=useContext(authContext)
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
   const onSubmit = data =>
   { 
-    
+    setUser(data)
     api.add('/auth/register',data)
     .then(res => {
-        setAccount(false)
+      console.log(res)
+      setAccount(false)
+
     })
     .catch(err => {
         console.log('Err', err);
         alert('Email or password invalid!')
     })
-   
-    localStorage.setItem('user', JSON.stringify(data));
-  
   };
   const handleİmage = (e) => {
     const reader = new FileReader()

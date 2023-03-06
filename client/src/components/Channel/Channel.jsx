@@ -48,7 +48,7 @@ function Channel() {
 
   }
   const handleSubmit = () => {
-    console.log(newChannel)
+    // console.log(newChannel)
     if (newChannel.channelName != "" && newChannel.channelDescription != "") {
       axiosInstance.post("/group/new/newchannel", {
         channelName: newChannel.channelName,
@@ -70,18 +70,20 @@ function Channel() {
     handleSubmit()
     handleClose()
   }
-  const handleChannelInfo=(channel)=>{
-    console.log(channel.id)
+  const  handleChannelInfo= async (channel)=>{
+    const info=JSON.parse(localStorage.getItem("user"))
+    // console.log(info)
+    // console.log(channel.id)
     setRoomID(channel.id)
     setVisible(false)
     setShowChat(false)
-    console.log(members)
-    const findMember=members.find((member)=>member.email=="zalova050505@gmail.com")
-    console.log(findMember)
+    // console.log(members)
+    const findMember=members.find((member)=>member.email==info.email)
+    // console.log(findMember)
     if(!findMember){
-      axiosInstance.post(`/group/new/newmember?id=${roomID}`, {
-      userName: "camal",
-      email:"zalova050505@gmail.com",
+     await axiosInstance.post(`/group/new/newmember?id=${roomID}`, {
+      userName: info.username,
+      email:info.email,
       userİmage: "slack.svg",
     })
     }

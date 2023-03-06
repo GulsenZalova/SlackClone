@@ -19,7 +19,7 @@ const authSchema=new Schema({
     },
     image:{
         type:Array,
-        required:true
+        // required:true
     },
     addDate: {
         type:Date,

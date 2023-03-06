@@ -3,6 +3,7 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 function Form() {
     const [account,setAccount]=useState(false)
+    
   return (
     <div>
         {

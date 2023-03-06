@@ -13,7 +13,7 @@ const schema = yup.object({
 function Confirm() {
   let location = useLocation()
   const navigate = useNavigate();
-  const { loginStatus, setloginStatus } = useContext(authContext);
+  const { loginStatus, setloginStatus,user } = useContext(authContext);
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
@@ -22,6 +22,7 @@ function Confirm() {
     .then(res => {
         navigate('/home')
         localStorage.setItem('token', res.token);
+        localStorage.setItem("user",JSON.stringify(user))
         setloginStatus(true);
     })
     .catch(err => {

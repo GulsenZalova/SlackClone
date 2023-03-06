@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import user from "../../assets/images/user.png"
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -8,6 +8,7 @@ import { AccountCircle, ExitToApp, AttachFile } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import "./style.css"
+import { useState } from 'react';
 const StyledMenu = styled((props) => (
     <Menu
         elevation={0}
@@ -50,6 +51,11 @@ const StyledMenu = styled((props) => (
     },
 }));
 function UserOptions() {
+    const [userInfo,setUserİnfo]=useState(null)
+    useEffect(()=>{
+        const info=JSON.parse(localStorage.getItem("user"))
+        setUserİnfo(info)
+    },[])
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -62,10 +68,10 @@ function UserOptions() {
     return (
         <div className='user-options'>
             <div className='user-img'>
-                <img src={user} alt="" style={{ width: "42px", height: "42px" }} />
+                <span className='name-title'>{userInfo ? userInfo.username.split(" ").map(x=>x[0]) : ""}</span>
             </div>
             <div className='user-name' >
-                Xanthe Neal
+                 {userInfo ? userInfo.username : ""}
             </div>
             <div className='user-option'>
                 <Button

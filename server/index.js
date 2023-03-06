@@ -77,6 +77,8 @@ app.get('/', function (req, res) {
 app.use("/api/auth", authRouter);
 app.use("/api/group",groupChatRouter)
 
+// static Images folder
+app.use("/Images",express.static("./Images"))
 http.listen(PORT, () => {
   console.log(`Server is running on port:${PORT}`)
 })
