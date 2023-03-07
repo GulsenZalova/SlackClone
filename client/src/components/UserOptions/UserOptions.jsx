@@ -9,6 +9,8 @@ import Divider from '@mui/material/Divider';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import "./style.css"
 import { useState } from 'react';
+import { useContext } from 'react';
+import { authContext } from '../../store/AuthContext';
 const StyledMenu = styled((props) => (
     <Menu
         elevation={0}
@@ -51,11 +53,14 @@ const StyledMenu = styled((props) => (
     },
 }));
 function UserOptions() {
-    const [userInfo,setUserİnfo]=useState(null)
-    useEffect(()=>{
-        const info=JSON.parse(localStorage.getItem("user"))
-        setUserİnfo(info)
-    },[])
+    const {user}=useContext(authContext)
+    console.log(user)
+    // const [userInfo,setUserİnfo]=useState(null)
+    // useEffect(()=>{
+    //     const info=JSON.parse(localStorage.getItem("user"))
+    //     setUserİnfo(info)
+    //     console.log(info)
+    // },[])
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -68,10 +73,10 @@ function UserOptions() {
     return (
         <div className='user-options'>
             <div className='user-img'>
-                <span className='name-title'>{userInfo ? userInfo.username.split(" ").map(x=>x[0]) : ""}</span>
+                <span className='name-title'>{user ? user.image : ""}</span>
             </div>
             <div className='user-name' >
-                 {userInfo ? userInfo.username : ""}
+                 {user ? userInfo.user : ""}
             </div>
             <div className='user-option'>
                 <Button

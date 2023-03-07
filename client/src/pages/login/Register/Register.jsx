@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { authContext } from '../../../store/AuthContext';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -19,52 +19,77 @@ const schema = yup.object({
 
 }).required();
 
-function Register({account,setAccount}) {
+function Register({ account, setAccount }) {
   const [selectimage, setSelectİmage] = useState("")
-  const {setUser}=useContext(authContext)
+  const { setUser } = useContext(authContext)
+  const [registerUser,setRegisterUser]=useState({
+    username:"",
+    email:"",
+    password:"",
+    image:""
+  })
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
-  const onSubmit = data =>
-  { 
-    setUser(data)
-    api.add('/auth/register',data)
-    .then(res => {
-      console.log(res)
-      setAccount(false)
+  const onSubmit = data => {
+    console.log(registerUser)
+    setUser(registerUser)
+    api.add('/auth/register', registerUser)
+      .then(res => {
+        console.log(res)
+        setAccount(false)
 
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         console.log('Err', err);
         alert('Email or password invalid!')
-    })
+      })
   };
+
+  const handleInput=(e)=>{
+    const name=e.target.name
+    const value=e.target.value
+      setRegisterUser({
+        ...registerUser,
+        [name]:value
+      })
+  }
   const handleİmage = (e) => {
     const reader = new FileReader()
     reader.onload = () => {
       setSelectİmage(reader.result)
+      setRegisterUser({
+        ...registerUser,
+        image:reader.result
+      })
     }
     reader.readAsDataURL(e.target.files[0])
     console.log("salam")
   }
-  const handleClick=()=>{
+  const handleClick = () => {
     setAccount(false)
-}
+  }
   return (
     <div className='register'>
       <div className='register-area'>
         <h1>Register</h1>
         <form className='register-form' onSubmit={handleSubmit(onSubmit)}>
           <div className='input-box'>
-            <input type="text" id='name' name='username' placeholder='username' {...register("username")} />
+            <input type="text" id='name' name='username' placeholder='username' {...register("username",{
+                onChange: handleInput
+              })} />
             <p>{errors.username?.message}</p>
           </div>
           <div className='input-box'>
-            <input type="text" id='email' name='email' placeholder='email' {...register("email")} />
+            <input type="text" id='email' name='email' placeholder='email' {...register("email",{
+                onChange: handleInput
+              })} />
             <p>{errors.email?.message}</p>
           </div>
           <div className='input-box'>
-            <input type="password" id='password' name='password' placeholder='password' {...register("password")} />
+            <input type="password" id='password' name='password' placeholder='password' {...register("password",{
+                onChange: handleInput
+              })} />
             <p>{errors.password?.message}</p>
           </div>
           <div className='input-box'>
@@ -73,7 +98,9 @@ function Register({account,setAccount}) {
                 {selectimage ? <img src={selectimage} alt="" /> : ""}
               </div>
               <label className='choosenlabel' htmlFor="image">Choose İmage</label>
-              <input type="file" id='image' name='image' onChange={handleİmage} hidden {...register("image")} />
+              <input type="file" id='image' name='image' onChange={handleİmage} hidden {...register("image", {
+                onChange: handleİmage
+              })} />
             </div>
             <p>{errors.image?.message}</p>
           </div>
