@@ -22,7 +22,6 @@ function Confirm() {
     .then(res => {
         navigate('/home')
         localStorage.setItem('token', res.token);
-        localStorage.setItem("user",JSON.stringify(user))
         setloginStatus(true);
     })
     .catch(err => {

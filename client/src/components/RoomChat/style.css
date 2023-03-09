@@ -47,12 +47,17 @@
     letter-spacing: -0.035em;
     color:var(--titlecolor);
 }
+.messagge-content{
+    word-wrap:break-word ;
+}
 .messagge-content p{
 font-family: NotoSans-Regular;
 font-size: 18px;
 line-height: 25px;
 letter-spacing: -0.035em;
 color: var(--textcolor);
+word-wrap: break-word;
+width: 600px;
 }
 
 .messagge-form{

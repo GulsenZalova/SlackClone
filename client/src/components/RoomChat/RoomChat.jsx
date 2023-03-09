@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import SideBar from '../SideBar/SideBar';
-import user from "../../assets/images/user.png"
+import userpng from "../../assets/images/user.png"
 import { Send, Menu, PermMedia } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -13,18 +13,13 @@ const socket = io("http://localhost:3000", { transports: ['websocket', 'polling'
 import "./style.css"
 import { useState } from 'react';
 
-
 function RoomChat() {
   const { roomID} = useContext(chatContext)
+  const [user,setUser]=useState(null)
   const [value, setValue] = useState("")
   const [roomDetails, setRoomDetails] = useState(null)
   const [roomMessages, setMessages] = useState([])
-  const [userInfo,setUserİnfo]=useState(null)
-  
-  useEffect(()=>{
-      const info=JSON.parse(localStorage.getItem("user"))
-      setUserİnfo(info)
-  },[])
+
   useEffect(() => {
     socket.on("groupmessage", (res) => {
       setMessages((prev) => [...prev, res])
@@ -40,7 +35,10 @@ function RoomChat() {
     // console.log(roomMessages)
   }, [roomID])
   
-
+ useEffect(()=>{
+  const info =JSON.parse(localStorage.getItem("info"))
+  setUser(info)
+ },[])
   const [state, setState] = React.useState({
     left: false,
   });
@@ -54,15 +52,15 @@ function RoomChat() {
   };
 
   const sendMsg = async (e) => {
-    const info=JSON.parse(localStorage.getItem("user"))
-    setUserİnfo(info)
+    const info = await JSON.parse(localStorage.getItem("user"))
+    console.log(info)
     e.preventDefault()
       const messageContent = {
         user: info.username,
         message: value,
         type:"text",
         room: roomID,
-        userİmage: "slack.svg",
+        userİmage: info.image,
         liked:false,
         timeStamp:  (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
         
@@ -72,11 +70,11 @@ function RoomChat() {
         await socket.emit("send", messageContent)
         setMessages((prev) => [...prev, messageContent])
         axiosInstance.post(`/group/new/newmessage?id=${roomID}`, {
-          user: info.username,
+          user:info.username,
           message: value,
           type:"text",
           room: roomID,
-          userİmage: "slack.svg",
+          userİmage: info.image,
           liked:false,
           timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
         })
@@ -129,7 +127,8 @@ function RoomChat() {
               roomMessages.map((msg, i) => (
                 <div className='group-chat-messagge' key={i}>
                   <div className='messagge-img'>
-                    <span className='user-title'>{msg?.user?.split(" ").map(x=>x[0])}</span>
+                    {/* <span className='user-title'>{msg?.user?.split(" ").map(x=>x[0])}</span> */}
+                    <img style={{width:"50px",height:"50px"}} src={msg.userİmage ? msg.userİmage : userpng} alt="" />
                   </div>
                   <div className='messagge-info'>
                     <div className='messagge-desc'>
@@ -141,7 +140,7 @@ function RoomChat() {
                             msg.type=="file" ? (
                               <Message message={msg.message}/>
                             ): (
-                              <p onClick={(e)=>{console.log(msg)}}>{msg?.message}</p>
+                              <p>{msg?.message}</p>
                             )
                           }
                     </div>

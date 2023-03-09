@@ -72,8 +72,7 @@ function Channel() {
   }
   const  handleChannelInfo= async (channel)=>{
     const info=JSON.parse(localStorage.getItem("user"))
-    // console.log(info)
-    // console.log(channel.id)
+    console.log(info)
     setRoomID(channel.id)
     setVisible(false)
     setShowChat(false)
@@ -84,7 +83,7 @@ function Channel() {
      await axiosInstance.post(`/group/new/newmember?id=${roomID}`, {
       userName: info.username,
       email:info.email,
-      userİmage: "slack.svg",
+      userİmage: info.image,
     })
     }
   }

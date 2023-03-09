@@ -4,9 +4,9 @@ import { createContext, useState } from "react";
 export const authContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    const [user,setUser]=useState(null)
+    // const [user,setUser]=useState(null)
     const [loginStatus, setloginStatus] = useState(false);
-    console.log(user)
+    // console.log(user)
     const [register,setResgister]=useState({
         username:"",
         email:"",
@@ -18,8 +18,6 @@ export const AuthProvider = ({ children }) => {
         register,
         setloginStatus,
         setResgister,
-        user,
-        setUser
     }
     return <authContext.Provider value={value}>{children}</authContext.Provider>
 

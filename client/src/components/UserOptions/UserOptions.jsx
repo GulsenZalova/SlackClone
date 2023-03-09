@@ -4,7 +4,7 @@ import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { AccountCircle, ExitToApp, AttachFile } from '@mui/icons-material';
+import { AccountCircle, ExitToApp, AttachFile, Height } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import "./style.css"
@@ -53,14 +53,7 @@ const StyledMenu = styled((props) => (
     },
 }));
 function UserOptions() {
-    const {user}=useContext(authContext)
-    console.log(user)
-    // const [userInfo,setUserİnfo]=useState(null)
-    // useEffect(()=>{
-    //     const info=JSON.parse(localStorage.getItem("user"))
-    //     setUserİnfo(info)
-    //     console.log(info)
-    // },[])
+    const [user,setUser]=useState(null)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -69,14 +62,17 @@ function UserOptions() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
+    useEffect(()=>{
+        let info=JSON.parse(localStorage.getItem("user"))
+        setUser(info)
+    },[])
     return (
         <div className='user-options'>
             <div className='user-img'>
-                <span className='name-title'>{user ? user.image : ""}</span>
+                <img src={user && user.image} alt="" />
             </div>
             <div className='user-name' >
-                 {user ? userInfo.user : ""}
+                {user && user.username}
             </div>
             <div className='user-option'>
                 <Button

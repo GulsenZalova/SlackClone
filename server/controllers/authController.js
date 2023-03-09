@@ -65,9 +65,7 @@ const authController = {
                message:"There was a problem during registration"
              })
            }else{
-             return res.status(201).json({
-               message:"succes"
-             })
+             return res.status(201).json(doc)
            }
         })
       }

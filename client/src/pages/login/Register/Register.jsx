@@ -32,13 +32,12 @@ function Register({ account, setAccount }) {
     resolver: yupResolver(schema)
   });
   const onSubmit = data => {
-    console.log(registerUser)
-    setUser(registerUser)
     api.add('/auth/register', registerUser)
       .then(res => {
         console.log(res)
         setAccount(false)
-
+        // setUser(res)
+        localStorage.setItem("user",JSON.stringify(res))
       })
       .catch(err => {
         console.log('Err', err);

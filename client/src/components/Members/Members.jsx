@@ -7,11 +7,11 @@ import { useEffect,useState,useContext} from 'react';
 function Members() {
     const { roomID,setVisible} = useContext(chatContext)
     const [members,setMembers]=useState([])
-    useEffect(()=>{
-        axiosInstance.get(`/group/get/members?id=${roomID}`).then((res) => {
+    useEffect( ()=>{
+            console.log(roomID)
+            axiosInstance.get(`/group/get/members?id=${roomID}`).then((res) => {
             setMembers(res.data[0].members)
           })
-        //   console.log(members)
     },[roomID])
     const handleClose=()=>{
         setVisible(true)
@@ -36,7 +36,8 @@ function Members() {
                     members.length>0 ? (
                         members.map((member,index)=>(
                             <div className='sidebar-group-item' key={index}>
-                            <span className='group-logo'>{ member.userName ? member.userName.split(" ").map(x=>x[0]) : ""}</span>
+                            {/* <span className='group-logo'>{ member.userName ? member.userName.split(" ").map(x=>x[0]) : ""}</span> */}
+                            <img style={{width:"50px",height:"50px"}} src={member ? member.userİmage : ""} alt="" />
                             <span className='group-name'>{member.userName ? member.userName : ""}</span>
                         </div>
                         ))
