@@ -8,6 +8,7 @@
     top: 0;
     right: 0;
     width: 80%;
+    height: 60px;
     padding: 10px;
     background-color: var(--dark);
 }

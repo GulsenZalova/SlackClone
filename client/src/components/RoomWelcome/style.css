@@ -17,3 +17,7 @@
     color: var(--titlecolor);
     word-wrap: none; 
 }
+.welcome .group-chat-name{
+    visibility: hidden;
+    opacity: 0;
+}

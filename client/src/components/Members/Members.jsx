@@ -5,9 +5,9 @@ import {axiosInstance} from "../../network/axiosInstance"
 import "./style.css"
 import { useEffect,useState,useContext} from 'react';
 function Members() {
-    const { roomID,setVisible} = useContext(chatContext)
+    const {roomID,setVisible} = useContext(chatContext)
     const [members,setMembers]=useState([])
-    useEffect( ()=>{
+    useEffect(()=>{
             console.log(roomID)
             axiosInstance.get(`/group/get/members?id=${roomID}`).then((res) => {
             setMembers(res.data[0].members)
@@ -16,7 +16,6 @@ function Members() {
     const handleClose=()=>{
         setVisible(true)
     }
-    // console.log(members)
   return (
       <div className='side'>
          <div className='sidebar-header'>

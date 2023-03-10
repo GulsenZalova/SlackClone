@@ -60,6 +60,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("send", data => {
+    console.log(data)
     socket.to(data.room).emit("groupmessage",data)
   })
 })

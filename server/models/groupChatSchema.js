@@ -11,7 +11,8 @@ const shcema= new Schema({
             timeStamp:String,
             user:String,
             userİmage: String, 
-            liked:Boolean
+            liked:Boolean,
+            messageType:String
         }
     ],
     members:[

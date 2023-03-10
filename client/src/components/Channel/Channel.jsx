@@ -72,13 +72,10 @@ function Channel() {
   }
   const  handleChannelInfo= async (channel)=>{
     const info=JSON.parse(localStorage.getItem("user"))
-    console.log(info)
     setRoomID(channel.id)
     setVisible(false)
     setShowChat(false)
-    // console.log(members)
     const findMember=members.find((member)=>member.email==info.email)
-    // console.log(findMember)
     if(!findMember){
      await axiosInstance.post(`/group/new/newmember?id=${roomID}`, {
       userName: info.username,

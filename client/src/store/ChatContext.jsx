@@ -5,6 +5,7 @@ export const chatContext = createContext(null);
 
 export const ChatProvider = ({ children }) => {
     const [roomID,setRoomID]=useState(null)
+    const [account,setAccount]=useState(false)
     const [visible,setVisible]=useState(true)
     const [showChat,setShowChat]=useState(true)
     const value={
@@ -13,7 +14,9 @@ export const ChatProvider = ({ children }) => {
        visible,
        setVisible,
        showChat,
-       setShowChat
+       setShowChat,
+       account,
+       setAccount
     }
     return <chatContext.Provider value={value}>{children}</chatContext.Provider>
 }

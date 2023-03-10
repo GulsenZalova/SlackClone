@@ -134,6 +134,19 @@ const authController = {
       }
     );
   },
+  logout:(req,res)=>{
+    console.log(req.params.id)
+    const id=req.params.id
+    authModel.findById(id,(err,docs)=>{
+        if(!err){
+            docs.save()
+            docs.isDeleted = true;
+            res.json(docs)
+        }else{
+            res.status(500).json(err)
+        }
+    })
+},
 };
 
 module.exports={

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { authContext } from '../../../store/AuthContext';
+import { chatContext } from '../../../store/ChatContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import "./style.css"
@@ -19,7 +20,8 @@ const schema = yup.object({
 
 }).required();
 
-function Register({ account, setAccount }) {
+function Register() {
+  const { account, setAccount}=useContext(chatContext)
   const [selectimage, setSelectİmage] = useState("")
   const { setUser } = useContext(authContext)
   const [registerUser,setRegisterUser]=useState({

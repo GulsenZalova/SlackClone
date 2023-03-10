@@ -4,14 +4,16 @@ import { api } from '../../../network/api';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-
+import { chatContext } from '../../../store/ChatContext';
+import { useContext } from 'react';
 const schema = yup.object({
     email: yup.string().required().email(),
     password: yup.string().min(8).required(),
   }).required();
 
-function Login({account,setAccount}) {
+function Login({}) {
     const navigate = useNavigate();
+    const {account,setAccount}= useContext(chatContext)
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
       });

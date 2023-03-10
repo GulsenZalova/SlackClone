@@ -9,8 +9,11 @@ import Divider from '@mui/material/Divider';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import "./style.css"
 import { useState } from 'react';
+import { useNavigate} from 'react-router-dom';
+import { axiosInstance } from "../../network/axiosInstance"
 import { useContext } from 'react';
 import { authContext } from '../../store/AuthContext';
+import {chatContext} from "../../store/ChatContext"
 const StyledMenu = styled((props) => (
     <Menu
         elevation={0}
@@ -53,8 +56,10 @@ const StyledMenu = styled((props) => (
     },
 }));
 function UserOptions() {
+    const navigate = useNavigate();
     const [user,setUser]=useState(null)
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const {setAccount}=useContext(chatContext)
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -66,6 +71,14 @@ function UserOptions() {
         let info=JSON.parse(localStorage.getItem("user"))
         setUser(info)
     },[])
+   const  handleLogout = ()=>{
+        const id=user.id
+        console.log(IdleDeadline)
+        axiosInstance.delete(`/auth/logout/${id}`)
+        localStorage.removeItem("user")
+        navigate("/form")
+        setAccount(false)
+   }
     return (
         <div className='user-options'>
             <div className='user-img'>
@@ -108,7 +121,7 @@ function UserOptions() {
                     </MenuItem>
                     <Divider sx={{ my: 0.5, backgroundColor: "#3C393F" }} />
                     <MenuItem onClick={handleClose} disableRipple>
-                        <button style={{ backgroundColor: "transparent", border: "none", display: "flex", alignItems: "center" }}>
+                        <button onClick={handleLogout} style={{ backgroundColor: "transparent", border: "none", display: "flex", alignItems: "center" }}>
                             <ExitToApp style={{ fill: '#EB5757' }} />
                             <span className='option-red'>Logout</span>
                         </button>

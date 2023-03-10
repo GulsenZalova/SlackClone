@@ -110,7 +110,10 @@ body {
     .messagge-form{
         width: 90%;
     }
-
+    .welcome .group-chat-name{
+        visibility: visible;
+        opacity: 1;
+    }
     .messagge-form input{
         width: 90%;
         background-color: transparent;
