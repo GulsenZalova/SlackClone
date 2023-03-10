@@ -43,9 +43,24 @@ body {
     --buttoncolor:#2F80ED;
     --logoutcolor: #EB5757;
   }
+  @media only screen and (max-width:1400px) {
+    .register-area{
+        width: 470px;
+        height:650px;
+    } 
+    .register-form{
+        gap: 30px;
+    }
+}
 
   @media only screen and (max-width:1200px) {
-
+    .register-area{
+        width: 470px;
+        height:700px;
+    } 
+    .register-form{
+        gap: 35px;
+    }
     .messagge-form input{
         width: 90%;
         background-color: transparent;
@@ -57,9 +72,15 @@ body {
         width: 10%;
         margin: auto;
     }
+    h1{
+        font-size: 26px;
+    }
 }
 
 @media only screen and (max-width:1024px) {
+    .register-form{
+        gap: 30px;
+    }
     .sidebar{
         width: 30%;
     }
@@ -91,6 +112,9 @@ body {
     .messagge-form .send-btn{
         width: 10%;
         margin: auto;
+    }
+    h1{
+        font-size: 22px;
     }
 }
 
@@ -142,26 +166,41 @@ body {
 }
 @media only screen and (max-width:768px) {
     .register-area{
-        width: 300px;
-        height:450px;
+        width: 350px;
+        height:500px;
     } 
     .register-form{
-        gap: 20px;
+        gap: 30px;
     }
     .register-form input:not([type="file"]){
-        padding: 10px;
+        padding: 15px;
     }
     .label {
         padding: 10px;
     }
+    .choosenlabel {
+        font-size: 13px;
+    }
+    .file-image .image{
+        width: 45px;
+        height: 45px;
+    }
+    .file-img{
+        width: 45px;
+        height: 45px;
+    }
     .submitbtn{
         padding: 10px;
+        font-size: 13px;
     }
     h1{
-        font-size: 15px;
+        font-size: 18px;
     }
     .register-form input::placeholder{
         font-size: 10px;
+    }
+    .route p, .route span{
+        font-size: 12px;
     }
 }
 @media only screen and (max-width:450px) {
@@ -186,14 +225,14 @@ body {
         font-size: 14px;
     }
     .register-area{
-        width: 250px;
-        height:350px;
+        width: 300px;
+        height:520px;
     } 
     .register-form{
-        gap: 15px;
+        gap: 25px;
     }
     .register-form input:not([type="file"]){
-        padding: 5px;
+        padding: 10px;
     }
     label {
         padding: 10px;
@@ -208,6 +247,90 @@ body {
     }
     .register-form input::placeholder{
         font-size: 10px;
+    }
+    .route p, .route span{
+        font-size: 11px;
+    }
+    .choosenlabel {
+            padding: 10px;
+            font-size: 10px;
+    }
+    .file-image .image{
+        width: 40px;
+        height: 40px;
+    }
+    .file-img{
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media only screen and (max-width:320px) {
+    .messagge-form input{
+        width: 80%;
+        padding:0 15px;
+    }
+    .messagge-form .send-btn{
+        width: 15%;
+    }
+    .group-chat-messagges{
+        font-size: 15px;
+        padding: 0 10px;
+    }
+    .sender-name{
+        font-size: 12px;
+    }
+    .sender-date{
+        font-size: 10px;
+    }
+    .messagge-content p{
+        font-size: 14px;
+    }
+    .register-area{
+        width: 270px;
+        height:420px;
+    } 
+    .register-form{
+        gap: 8px;
+    }
+    .register-form input:not([type="file"]){
+        padding: 8px;
+    }
+    label {
+        padding: 8px;
+        font-size: 8px;
+    }
+    .submitbtn{
+        padding: 5px;
+        font-size: 13px;
+    }
+    h1{
+        font-size: 15px;
+    }
+    .register-form input::placeholder{
+        font-size: 10px;
+    }
+    .route p, .route span{
+        font-size: 11px;
+    }
+    .choosenlabel {
+            padding: 10px;
+            font-size: 10px;
+    }
+    .file-image .image{
+        width: 40px;
+        height: 40px;
+    }
+    .file-img{
+        width: 40px;
+        height: 40px;
+    }
+    .room-welcome-image{
+        width: 200px;
+        height: 200px;
+    }
+    .title,.tagline{
+       font-size: 17px;
     }
 }
 

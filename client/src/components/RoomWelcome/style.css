@@ -21,3 +21,7 @@
     visibility: hidden;
     opacity: 0;
 }
+.room-welcome-image{
+    width: 400px;
+    height: 400px;
+}

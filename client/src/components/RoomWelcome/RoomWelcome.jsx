@@ -49,7 +49,7 @@ function RoomWelcome() {
           </div>
         </div>
       </div>
-      <img src={slacklogo} alt="" style={{width:"400px",height:"400px"}} />
+      <img src={slacklogo} className="room-welcome-image"  alt="" />
       <h4 className='title'>SLACK</h4>
       <p className='tagline'>Make work life simpler, more pleasant and more productive.</p>
     </div>

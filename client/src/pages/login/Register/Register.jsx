@@ -121,7 +121,7 @@ function Register() {
           <div className='input-box'>
             <div className='file-image'>
               <div className='image'>
-                {selectimage ? <img src={selectimage} alt="" /> : ""}
+                {selectimage ? <img className='file-img' src={selectimage} alt="" /> : ""}
               </div>
               <label className='choosenlabel' htmlFor="image">Choose İmage</label>
               <input type="file" id='image' name='image' onChange={handleİmage} hidden {...register("image", {
