@@ -1,5 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { api } from '../../../network/api';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -21,12 +23,32 @@ function Login({}) {
         
         api.add('/auth/login', data)
             .then(res => {
-                navigate('confirm', { state: { webUserId: res._id } })
-                alert("Success")
+                setTimeout(()=>{
+                    navigate('confirm', { state: { webUserId: res._id } })
+                },5000)
+                toast.success('Successfully Login!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
             })
             .catch(err => {
                 console.log('Err', err);
-                alert('Email or password invalid!')
+                toast.error('Email or password invalid!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
             })
         console.log(data)
     
@@ -36,6 +58,8 @@ function Login({}) {
         setAccount(true)
     }
     return (
+        <>
+        <ToastContainer />
         <div className='register'>
             <div className='register-area'>
                 <h1>Login</h1>
@@ -56,6 +80,7 @@ function Login({}) {
                 </form>
             </div>
         </div>
+        </>
     )
 }
 

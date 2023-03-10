@@ -1,5 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as yup from "yup";
@@ -20,16 +22,40 @@ function Confirm() {
   const onSubmit = data => {
     api.add('/auth/confirmcode', {confirmCode:data.password, webUserId: location.state.webUserId})
     .then(res => {
-        navigate('/home')
+        setTimeout(() => {
+          navigate('/home')
+        }, 1000);
         localStorage.setItem('token', res.token);
         setloginStatus(true);
     })
     .catch(err => {
-        alert('Confirm Code Error!!');
+       toast.error('Confirm Code Error!!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     })
   
   };
   return (
+ <>
+    <ToastContainer 
+    position="top-right"
+    autoClose={5000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="light"
+    />
     <div className='register'>
     <div className='register-area'>
         <h1>Confirm</h1>
@@ -42,6 +68,7 @@ function Confirm() {
         </form>
     </div>
 </div>
+ </>
   )
 }
 

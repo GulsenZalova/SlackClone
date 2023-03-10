@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { authContext } from '../../../store/AuthContext';
 import { chatContext } from '../../../store/ChatContext';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -37,13 +39,34 @@ function Register() {
     api.add('/auth/register', registerUser)
       .then(res => {
         console.log(res)
-        setAccount(false)
+        setTimeout(()=>{
+          setAccount(false)
+        },5000)
         // setUser(res)
+        toast.success('Successfully Registered!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
         localStorage.setItem("user",JSON.stringify(res))
       })
       .catch(err => {
-        console.log('Err', err);
-        alert('Email or password invalid!')
+        console.log(err.message);
+        toast.error('This email is already registered', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       })
   };
 
@@ -71,6 +94,8 @@ function Register() {
     setAccount(false)
   }
   return (
+    <>
+    <ToastContainer />
     <div className='register'>
       <div className='register-area'>
         <h1>Register</h1>
@@ -114,6 +139,7 @@ function Register() {
         </form>
       </div>
     </div>
+    </>
   )
 }
 
