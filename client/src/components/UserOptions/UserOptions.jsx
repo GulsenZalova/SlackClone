@@ -1,19 +1,25 @@
-import React, { useEffect } from 'react'
-import user from "../../assets/images/user.png"
+import React, { useEffect, useContext } from 'react'
 import { styled, alpha } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { AccountCircle, ExitToApp, AttachFile, Height } from '@mui/icons-material';
-import Divider from '@mui/material/Divider';
+import {
+    Button,
+    Menu,
+    MenuItem,
+    Divider
+}
+    from '@mui/material';
+import {
+    AccountCircle,
+    ExitToApp,
+    AttachFile
+}
+    from '@mui/icons-material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import "./style.css"
 import { useState } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { axiosInstance } from "../../network/axiosInstance"
-import { useContext } from 'react';
-import { authContext } from '../../store/AuthContext';
-import {chatContext} from "../../store/ChatContext"
+import { chatContext } from "../../store/ChatContext"
+
 const StyledMenu = styled((props) => (
     <Menu
         elevation={0}
@@ -57,9 +63,9 @@ const StyledMenu = styled((props) => (
 }));
 function UserOptions() {
     const navigate = useNavigate();
-    const [user,setUser]=useState(null)
+    const [user, setUser] = useState(null)
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const {setAccount}=useContext(chatContext)
+    const { setAccount } = useContext(chatContext)
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -67,18 +73,18 @@ function UserOptions() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    useEffect(()=>{
-        let info=JSON.parse(localStorage.getItem("user"))
+    useEffect(() => {
+        let info = JSON.parse(localStorage.getItem("user"))
         setUser(info)
-    },[])
-   const  handleLogout = ()=>{
-        const id=user.id
+    }, [])
+    const handleLogout = () => {
+        const id = user.id
         console.log(IdleDeadline)
         axiosInstance.delete(`/auth/logout/${id}`)
         localStorage.removeItem("user")
         navigate("/form")
         setAccount(false)
-   }
+    }
     return (
         <div className='user-options'>
             <div className='user-img'>
@@ -97,7 +103,13 @@ function UserOptions() {
                     disableElevation
                     onClick={handleClick}
                     endIcon={<KeyboardArrowDownIcon />}
-                    style={{ backgroundColor: "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}
+                    style={
+                        {
+                            backgroundColor: "transparent",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }}
                 >
 
                 </Button>
@@ -121,7 +133,14 @@ function UserOptions() {
                     </MenuItem>
                     <Divider sx={{ my: 0.5, backgroundColor: "#3C393F" }} />
                     <MenuItem onClick={handleClose} disableRipple>
-                        <button onClick={handleLogout} style={{ backgroundColor: "transparent", border: "none", display: "flex", alignItems: "center" }}>
+                        <button
+                            onClick={handleLogout}
+                            style={{
+                                backgroundColor: "transparent",
+                                border: "none",
+                                display: "flex",
+                                alignItems: "center"
+                            }}>
                             <ExitToApp style={{ fill: '#EB5757' }} />
                             <span className='option-red'>Logout</span>
                         </button>

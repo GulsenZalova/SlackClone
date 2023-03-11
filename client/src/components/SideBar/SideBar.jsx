@@ -3,7 +3,6 @@ import Channel from '../Channel/Channel';
 import UserOptions from '../UserOptions/UserOptions';
 import Members from '../Members/Members';
 import { useContext } from 'react';
-import "./style.css"
 import {chatContext} from "../../store/ChatContext"
 function SideBar() {
    const {visible}=useContext(chatContext)

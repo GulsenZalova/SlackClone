@@ -1,22 +1,29 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SideBar from '../SideBar/SideBar';
 import userpng from "../../assets/images/user.png"
-import { Send, Menu, PermMedia } from '@mui/icons-material';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
+import {
+Send,
+Menu,
+PermMedia
+}
+  from '@mui/icons-material';
+import {
+Box,
+Drawer,
+Button
+}
+  from '@mui/material';
 import io from "socket.io-client"
 import Message from '../Message/Message';
 import { axiosInstance } from "../../network/axiosInstance"
 import { chatContext } from '../../store/ChatContext';
 const socket = io("http://localhost:3000", { transports: ['websocket', 'polling', 'flashsocket'] })
 import "./style.css"
-import { useState } from 'react';
 
 function RoomChat() {
-  const { roomID} = useContext(chatContext)
-  const [user,setUser]=useState(null)
-  const [file,setFile]=useState(false)
+  const { roomID } = useContext(chatContext)
+  const [user, setUser] = useState(null)
+  const [file, setFile] = useState(false)
   const [value, setValue] = useState("")
   const [roomDetails, setRoomDetails] = useState(null)
   const [roomMessages, setMessages] = useState([])
@@ -32,12 +39,12 @@ function RoomChat() {
       setMessages(res.data[0].conservation)
     })
   }, [roomID])
-  
- useEffect(()=>{
-  const info =JSON.parse(localStorage.getItem("info"))
-  setUser(info)
- },[])
- 
+
+  useEffect(() => {
+    const info = JSON.parse(localStorage.getItem("info"))
+    setUser(info)
+  }, [])
+
   const [state, setState] = React.useState({
     left: false,
   });
@@ -50,45 +57,45 @@ function RoomChat() {
     setState({ ...state, [anchor]: open });
   };
 
-  const sendMsg =  (e) => {
-    const info =JSON.parse(localStorage.getItem("user"))
+  const sendMsg = (e) => {
+    const info = JSON.parse(localStorage.getItem("user"))
     e.preventDefault()
-      const messageContent = {
+    const messageContent = {
+      user: info.username,
+      message: value,
+      messageType: "text",
+      room: roomID,
+      userİmage: info.image,
+      liked: false,
+      timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
+    }
+    console.log(messageContent)
+    if (value != "") {
+      socket.emit("send", messageContent)
+      setMessages((prev) => [...prev, messageContent])
+      axiosInstance.post(`/group/new/newmessage?id=${roomID}`, {
         user: info.username,
         message: value,
-        messageType:"text",
+        messageType: "text",
         room: roomID,
         userİmage: info.image,
-        liked:false,
-        timeStamp:  (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
-      }
-      console.log(messageContent)
-      if (value != "") {
-         socket.emit("send", messageContent)
-        setMessages((prev) => [...prev, messageContent])
-          axiosInstance.post(`/group/new/newmessage?id=${roomID}`, {
-          user:info.username,
-          message: value,
-          messageType: "text",
-          room: roomID,
-          userİmage: info.image,
-          liked:false,
-          timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
-        })
-        setValue("")
-      }
+        liked: false,
+        timeStamp: (new Date(Date.now())).getHours() + ":" + (new Date(Date.now())).getMinutes()
+      })
+      setValue("")
+    }
     socket.emit("room", roomID)
   }
-  const handleİnput=(e)=>{
+  const handleİnput = (e) => {
     setValue(e.target.value)
   }
-   const sendFile=(e)=>{
+  const sendFile = (e) => {
     const reader = new FileReader()
     reader.onload = () => {
       setValue(reader.result)
     }
     reader.readAsDataURL(e.target.files[0])
-   }
+  }
   return (
     <div className='group-chat'>
       <div className='group-chat-name'>
@@ -97,14 +104,24 @@ function RoomChat() {
             <div className='chat-menu'>
               {['left'].map((anchor) => (
                 <React.Fragment key={anchor}>
-                  <Button onClick={toggleDrawer(anchor, true)} className="menubtn"><Menu /></Button>
+                  <Button
+                    onClick={toggleDrawer(anchor, true)}
+                    className="menubtn">
+                    <Menu />
+                  </Button>
                   <Drawer
                     anchor={anchor}
                     open={state[anchor]}
                     onClose={toggleDrawer(anchor, false)}
                   >
                     <Box
-                      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 300, backgroundColor: "#252329", height: "100vh" }}
+                      sx={
+                        {
+                          width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 300,
+                          backgroundColor: "#252329",
+                          height: "100vh"
+                        }
+                      }
                       role="presentation"
                       onClick={toggleDrawer(anchor, true)}
                       onKeyDown={toggleDrawer(anchor, true)}
@@ -128,7 +145,11 @@ function RoomChat() {
               roomMessages.map((msg, i) => (
                 <div className='group-chat-messagge' key={i}>
                   <div className='messagge-img'>
-                    <img style={{width:"50px",height:"50px"}} src={msg.userİmage ? msg.userİmage : userpng} alt="" />
+                    <img
+                      style={
+                        { width: "50px", height: "50px" }
+                      }
+                      src={msg.userİmage ? msg.userİmage : userpng} alt="" />
                   </div>
                   <div className='messagge-info'>
                     <div className='messagge-desc'>
@@ -136,15 +157,15 @@ function RoomChat() {
                       <span className='send-date'>{msg?.timeStamp}</span>
                     </div>
                     <div className='messagge-content'>
-                          {
-                            msg?.messageType=="file" ? (
-                              <Message message={msg.message}/>
-                              
-                            ): (
-                              <p>{msg?.message}</p>
-                              
-                            )
-                          }
+                      {
+                        msg?.messageType == "file" ? (
+                          <Message message={msg.message} />
+
+                        ) : (
+                          <p>{msg?.message}</p>
+
+                        )
+                      }
                     </div>
                   </div>
                 </div>
@@ -155,13 +176,25 @@ function RoomChat() {
       </div>
       <div className='chat-container'>
         <form className='messagge-form'>
-          <input type="text" value={value} onChange={handleİnput} placeholder='Type a message here' />
+          <input
+            type="text"
+            value={value}
+            onChange={handleİnput}
+            placeholder='Type a message here' />
           <div className='senddiv'>
-          <label htmlFor="file-input" >
-            <PermMedia />
-          </label>
-          <input id="file-input" onChange={sendFile} hidden type="file" />
-          <button className='send-btn' onClick={sendMsg}><Send style={{ color: "white", fontSize: "17px" }} /></button>
+            <label htmlFor="file-input" >
+              <PermMedia />
+            </label>
+            <input
+              id="file-input"
+              onChange={sendFile}
+              hidden
+              type="file" />
+            <button
+              className='send-btn'
+              onClick={sendMsg}>
+              <Send style={{ color: "white", fontSize: "17px" }} />
+            </button>
           </div>
         </form>
       </div>

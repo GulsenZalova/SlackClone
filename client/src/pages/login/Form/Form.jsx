@@ -5,7 +5,6 @@ import { authContext } from '../../../store/AuthContext'
 import Login from '../Login/Login'
 import {chatContext} from "../../../store/ChatContext"
 function Form() {
-    // const [account,setAccount]=useState(false)
     const {account,setAccount}=useContext(chatContext)
   return (
     <div>

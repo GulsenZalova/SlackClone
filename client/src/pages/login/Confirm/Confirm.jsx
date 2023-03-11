@@ -15,60 +15,67 @@ const schema = yup.object({
 function Confirm() {
   let location = useLocation()
   const navigate = useNavigate();
-  const { loginStatus, setloginStatus,user } = useContext(authContext);
+  const { setloginStatus } = useContext(authContext);
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
   const onSubmit = data => {
-    api.add('/auth/confirmcode', {confirmCode:data.password, webUserId: location.state.webUserId})
-    .then(res => {
+    api.add('/auth/confirmcode', { confirmCode: data.password, webUserId: location.state.webUserId })
+      .then(res => {
         setTimeout(() => {
           navigate('/home')
         }, 1000);
         localStorage.setItem('token', res.token);
         setloginStatus(true);
-    })
-    .catch(err => {
-       toast.error('Confirm Code Error!!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
+      })
+      .catch(err => {
+        toast.error('Confirm Code Error!!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
         });
-    })
-  
+      })
+
   };
   return (
- <>
-    <ToastContainer 
-    position="top-right"
-    autoClose={5000}
-    hideProgressBar={false}
-    newestOnTop={false}
-    closeOnClick
-    rtl={false}
-    pauseOnFocusLoss
-    draggable
-    pauseOnHover
-    theme="light"
-    />
-    <div className='register'>
-    <div className='register-area'>
-        <h1>Confirm</h1>
-        <form className='register-form' onSubmit={handleSubmit(onSubmit)} >
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <div className='register'>
+        <div className='register-area'>
+          <h1>Confirm</h1>
+          <form
+            className='register-form'
+            onSubmit={handleSubmit(onSubmit)} >
             <div className='input-box'>
-                <input type="password" id='password' name='password' placeholder='password' {...register("password")} />
-                <p>{errors.password?.message}</p>
+              <input
+                type="password"
+                id='password'
+                name='password'
+                placeholder='password'
+                {...register("password")} />
+              <p>{errors.password?.message}</p>
             </div>
             <button className='submitbtn' type='submit'>Submit</button>
-        </form>
-    </div>
-</div>
- </>
+          </form>
+        </div>
+      </div>
+    </>
   )
 }
 
