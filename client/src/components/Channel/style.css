@@ -157,3 +157,6 @@ letter-spacing: -0.035em;
 color: var(--titlecolor);
 }
 
+.channel-form input,.channel-form textarea{
+    color: white;    
+}

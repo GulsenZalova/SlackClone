@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { AddBox, Search } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -54,6 +56,27 @@ function Channel() {
         channelName: newChannel.channelName,
         channelDescription: newChannel.channelDescription
       })
+      toast.success('Group was created', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+    }else{
+      toast.error("Don't keep empty space!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   }
 
@@ -68,7 +91,9 @@ function Channel() {
 
   const handleClick=()=>{
     handleSubmit()
-    handleClose()
+    if (newChannel.channelName != "" && newChannel.channelDescription != "") {
+      handleClose()
+      }
   }
   const  handleChannelInfo= async (channel)=>{
     const info=JSON.parse(localStorage.getItem("user"))
@@ -88,6 +113,8 @@ function Channel() {
     setSeacrh(e.target.value)
   }
   return (
+   <>
+    <ToastContainer />
     <div className='side'>
       <div className='sidebar-header'>
         <span className='title'>Channels</span>
@@ -133,6 +160,7 @@ function Channel() {
         </DialogActions>
       </Dialog>
     </div>
+   </>
   )
 }
 
