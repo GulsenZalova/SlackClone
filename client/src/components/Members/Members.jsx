@@ -42,7 +42,7 @@ function Members() {
                 </div>
                 <div className='sidebar-group'>
                     {
-                        members.length > 0 ? (
+                        members.length > 0 && (
                             members.map((member, index) => (
                                 <div className='sidebar-group-item' key={index}>
                                     <img
@@ -53,9 +53,7 @@ function Members() {
                                     <span className='group-name'>{member.userName ? member.userName : ""}</span>
                                 </div>
                             ))
-                        ) : (
-                            <h5>There are no users in the group</h5>
-                        )
+                        ) 
                     }
                 </div>
             </div>

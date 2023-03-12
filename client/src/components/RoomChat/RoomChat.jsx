@@ -89,13 +89,13 @@ function RoomChat() {
   const handleİnput = (e) => {
     setValue(e.target.value)
   }
-  const sendFile = (e) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      setValue(reader.result)
-    }
-    reader.readAsDataURL(e.target.files[0])
-  }
+  // const sendFile = async (e) => {
+  //   const reader = new FileReader()
+  //   reader.onload = () => {
+  //     setValue(reader.result)
+  //   }
+  //   reader.readAsDataURL(e.target.files[0])
+  // }
   return (
     <div className='group-chat'>
       <div className='group-chat-name'>
@@ -182,14 +182,14 @@ function RoomChat() {
             onChange={handleİnput}
             placeholder='Type a message here' />
           <div className='senddiv'>
-            <label htmlFor="file-input" >
+            {/* <label htmlFor="file-input" >
               <PermMedia />
             </label>
             <input
               id="file-input"
               onChange={sendFile}
               hidden
-              type="file" />
+              type="file" /> */}
             <button
               className='send-btn'
               onClick={sendMsg}>

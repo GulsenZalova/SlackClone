@@ -3,13 +3,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AddBox, Search } from '@mui/icons-material';
 import {
-Button,
-Dialog,
-DialogActions,
-DialogContent,
-DialogContentText,
-DialogTitle,
-Slide
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Slide
 }
   from '@mui/material';
 import { axiosInstance } from "../../network/axiosInstance"
@@ -145,7 +145,7 @@ function Channel() {
                     <span className='group-name'>{channel.name}</span>
                   </div>
                 ))
-              )
+              ) 
             }
           </div>
         </div>
