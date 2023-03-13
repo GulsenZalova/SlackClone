@@ -1,5 +1,22 @@
 # SlackClone
 
+
+  - 🔍 Used in the project:
+    - FrontEnd
+      - React (Context Api for State Management)
+      - REACT
+      - Socket.io-client
+      - JSON-SERVER API (Axios)
+      - Material UI
+    - Backend 
+      - Mongo DB
+      - Node.js
+      - Express.js
+      - Mongoose
+      - Socket.io
+### UI
+
+
 ![image](https://user-images.githubusercontent.com/95272056/224764378-d54def99-42fc-408f-b9a5-cbd597dfb54a.png)
 
 <hr>
