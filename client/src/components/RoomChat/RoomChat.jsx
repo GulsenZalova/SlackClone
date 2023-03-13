@@ -14,10 +14,9 @@ Button
 }
   from '@mui/material';
 import io from "socket.io-client"
-import Message from '../Message/Message';
 import { axiosInstance } from "../../network/axiosInstance"
 import { chatContext } from '../../store/ChatContext';
-const socket = io("http://localhost:3000", { transports: ['websocket', 'polling', 'flashsocket'] })
+const socket = io("https://slackcloneappbygulsen.herokuapp.com", { transports: ['websocket', 'polling', 'flashsocket'] })
 import "./style.css"
 
 function RoomChat() {
@@ -89,13 +88,6 @@ function RoomChat() {
   const handleİnput = (e) => {
     setValue(e.target.value)
   }
-  // const sendFile = async (e) => {
-  //   const reader = new FileReader()
-  //   reader.onload = () => {
-  //     setValue(reader.result)
-  //   }
-  //   reader.readAsDataURL(e.target.files[0])
-  // }
   return (
     <div className='group-chat'>
       <div className='group-chat-name'>
@@ -157,15 +149,7 @@ function RoomChat() {
                       <span className='send-date'>{msg?.timeStamp}</span>
                     </div>
                     <div className='messagge-content'>
-                      {
-                        msg?.messageType == "file" ? (
-                          <Message message={msg.message} />
-
-                        ) : (
                           <p>{msg?.message}</p>
-
-                        )
-                      }
                     </div>
                   </div>
                 </div>
@@ -181,21 +165,11 @@ function RoomChat() {
             value={value}
             onChange={handleİnput}
             placeholder='Type a message here' />
-          <div className='senddiv'>
-            {/* <label htmlFor="file-input" >
-              <PermMedia />
-            </label>
-            <input
-              id="file-input"
-              onChange={sendFile}
-              hidden
-              type="file" /> */}
             <button
               className='send-btn'
               onClick={sendMsg}>
               <Send style={{ color: "white", fontSize: "17px" }} />
             </button>
-          </div>
         </form>
       </div>
       <div>

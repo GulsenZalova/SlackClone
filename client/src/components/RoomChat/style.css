@@ -1,7 +1,10 @@
 
 .chat-container{
     margin: auto;
-    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
 }
 .group-chat-name {
     position: fixed;
@@ -11,6 +14,7 @@
     height: 60px;
     padding: 10px;
     background-color: var(--dark);
+    display: flex;
 }
 .group-chat-messagges{
     display: flex;
@@ -35,7 +39,7 @@
 
 .sender-name {
     font-family: NotoSans-SemiBold;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 25px;
     letter-spacing: -0.035em;
     color: var(--titlecolor);
@@ -58,7 +62,8 @@ line-height: 25px;
 letter-spacing: -0.035em;
 color: var(--textcolor);
 word-wrap: break-word;
-width: 600px;
+width: 1050px;
+margin: 5px;
 }
 
 .messagge-form{
@@ -66,7 +71,7 @@ width: 600px;
     padding: 5px;
     background-color: var(--dark);
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
     border-radius: 8px;
     display: flex;
 }
@@ -91,14 +96,8 @@ width: 600px;
     height: 42px;
     font-size: 15px;
 }
-.senddiv{
-    width:10% ;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-}
 .messagge-form .send-btn{
+    width: 10%;
     border: none;
    padding:10px;
    border-radius: 8px;
@@ -126,5 +125,4 @@ color: var(--titlecolor);
     display: none;
     visibility: hidden;
     opacity: 0;
-    background-color: red;
 }
