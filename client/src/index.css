@@ -64,7 +64,6 @@ body {
         width: 10%;
     }
     .messagge-content p{
-        background-color: #2F80ED;
         width: 850px;
     }
     .messagge-form{
@@ -96,7 +95,6 @@ body {
     }
     .messagge-content p{
         width: 700px;
-        background-color: #EB5757;
     }
     .messagge-form{
         width: 75%;
@@ -140,7 +138,6 @@ body {
     }
     .messagge-content p{
         width: 490px;
-        background-color: green;
     }
     .room-welcome-image{
         width: 300px;
@@ -199,7 +196,6 @@ body {
     }
     .messagge-content p{
         width: 650px;
-        background-color: yellow;
     }
     
 }
@@ -243,7 +239,6 @@ body {
     }
     .messagge-content p{
         width: 600px;
-        background-color: darkmagenta;
     }
     .room-welcome-image{
         width: 250px;
@@ -315,7 +310,6 @@ body {
     }
     .messagge-content p{
         width: 250px;
-        background-color: darkred;
     }
     .room-welcome-image{
         width: 190px;
@@ -396,7 +390,6 @@ body {
     }
     .messagge-content p{
         width: 200px;
-        background-color: bisque;
     }
 }
 
