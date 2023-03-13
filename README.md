@@ -1,5 +1,9 @@
 # SlackClone
 
+![image](https://user-images.githubusercontent.com/95272056/224764378-d54def99-42fc-408f-b9a5-cbd597dfb54a.png)
+
+<hr>
+
 ![image](https://user-images.githubusercontent.com/95272056/224761740-625212a3-ccfb-4b43-a1a9-9805c76fcde0.png)
 
 <hr>
