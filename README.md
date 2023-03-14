@@ -14,6 +14,31 @@
       - Express.js
       - Mongoose
       - Socket.io
+      
+   <hr>
+      
+   - 🔍Features in the project:
+     - Responsive Design
+     - Register, login and confirm pages 
+     - A new group can be created by specifying a name and description
+     - Existing groups can be searched
+     - You can write a message to the group
+     - Messages of other group members can be seen
+     - The user becomes a member of the group she(he) belongs to
+     - Be able to exit the program
+   
+   <hr>
+      
+   - 🔍Using the project:
+     - Sign up for a new account or log in with an existing account.
+     - Enter the confirmation code sent to your email address
+     - Create a new group by providing a name and description
+     - Search for what you want from the available groups
+     - Enter the desired group and chat with the members of that group
+     - Exit the program at any time using the logout button
+     
+   <hr>
+     
 ### UI
 
 
